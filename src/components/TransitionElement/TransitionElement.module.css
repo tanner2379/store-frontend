@@ -1,0 +1,95 @@
+/* Fade */
+.FadeAppear {
+  opacity: 0;
+}
+
+.FadeAppearActive {
+  opacity: 1;
+  transition: opacity 300ms linear 300ms;
+}
+
+.FadeEnter {
+  opacity: 0;
+}
+
+.FadeEnterActive {
+  opacity: 1;
+  transition: opacity 300ms linear 300ms;
+}
+
+.FadeExit {
+  opacity: 1;
+}
+
+.FadeExitActive {
+  opacity: 0;
+  transition: opacity 300ms linear;
+}
+
+/* Slide Left */
+.SlideLeftAppear {
+  z-index: 10;
+  transform: translate3d(100%, 0, 0);
+}
+
+.SlideLeftAppearActive {
+  z-index: 10;
+  transform: translate3d(0, 0, 0);
+  transition: all 500ms ease-in-out;
+}
+
+.SlideLeftEnter {
+  z-index: 10;
+  transform: translate3d(100%, 0, 0);
+}
+
+.SlideLeftEnterActive {
+  z-index: 10;
+  transform: translate3d(0, 0, 0);
+  transition: all 500ms ease-in-out;
+}
+
+.SlideLeftExit {
+  z-index: 1;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.SlideLeftExitActive {
+  z-index: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all 500ms ease-in-out;
+}
+
+/* Slide Right */
+.SlideRightAppear {
+  z-index: 10;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.SlideRightAppearActive {
+  z-index: 10;
+  transform: translate3d(0, 0, 0);
+  transition: all 500ms ease-in-out;
+}
+
+.SlideRightEnter {
+  z-index: 10;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.SlideRightEnterActive {
+  z-index: 10;
+  transform: translate3d(0, 0, 0);
+  transition: all 500ms ease-in-out;
+}
+
+.SlideRightExit {
+  z-index: 1;
+  transform: translate3d(100%, 0, 0);
+}
+
+.SlideRightExitActive {
+  z-index: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all 500ms ease-in-out;
+}

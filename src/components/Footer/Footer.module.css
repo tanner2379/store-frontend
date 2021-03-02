@@ -1,0 +1,109 @@
+.Footer {
+  position: absolute;
+  bottom: 16px;
+  right: 0;
+}
+
+.Icon,
+.Icon img {
+  display: inline-block;
+  margin-right: 16px;
+  height: 36px;
+  width: 36px;
+}
+
+.Icon:hover {
+  animation-name: iconBounce;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+.emailIcon {
+  display: inline-block;
+  margin-right: 16px;
+  border-radius: 100%;
+  font-size: 36px;
+  height: 36px;
+  width: 36px;
+  background-color: #3a6177;
+  color: #c2e9fb;
+  text-align: center;
+  cursor: pointer;
+}
+
+.emailIcon:hover {
+  animation-name: iconBounce;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+.email {
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  background-color: white;
+  border-radius: 5px;
+  height: 24px;
+  width: 175px;
+  text-align: center;
+  padding-top: 5px;
+  animation-name: showEmail;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+}
+
+.emailText {
+  position: relative;
+  bottom: 5px;
+}
+
+@keyframes iconBounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes showEmail {
+  0% {
+    right: 136px;
+    height: 0px;
+    width: 1px;
+    font-size: 0;
+  }
+
+  25% {
+    right: 136px;
+    height: 24px;
+    width: 1px;
+    font-size: 0;
+  }
+
+  50% {
+    right: 78px;
+    height: 24px;
+    width:125px;
+    font-size: 0;
+  }
+
+  100%{
+    right: 48px;
+    height: 24px;
+    width: 175px;
+  }
+}
+
+@media(max-width: 499px) {
+  .Footer {
+    display: none;
+  }
+}
