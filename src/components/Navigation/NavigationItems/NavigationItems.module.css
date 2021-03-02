@@ -6,7 +6,18 @@
   flex-flow: column;
   align-items: left;
   width: 30%;
+}
 
+.Logout {
+  margin: 10px 0;
+  display: block;
+  width: 100%;
+  color: #2e2e2d;
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  cursor: pointer;
 }
 
 @media(min-width: 500px) {
@@ -14,5 +25,18 @@
     flex-flow: row;
     height: 100%;
     width: 100%;
+  }
+
+  .Logout {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: auto;
+    color: #2e2e2d;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
   }
 }

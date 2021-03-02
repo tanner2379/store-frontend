@@ -15,12 +15,17 @@ const NavigationItems = props => {
     </NavigationItem>
   )
 
-  if (userInfo.loggedIn) {
+  if (userInfo.loggedIn === "LOGGED_IN") {
     profileLink = (
       <NavigationItem link={`/users/${userInfo.user.id}`}>
         Profile
       </NavigationItem>
     )
+  }
+
+  const handleLogout = () => {
+    console.log("hello");
+    setUserInfo({loggedIn: 'NOT_LOGGED_IN', user: {}})
   }
 
   return (
@@ -35,6 +40,9 @@ const NavigationItems = props => {
         Categories
       </NavigationItem>
       {profileLink}
+      {userInfo.loggedIn
+      ? <div className={classes.Logout} onClick={handleLogout}>Log Out</div>
+      : null}
       <NavigationItem link={'/cart'}>
         Cart
       </NavigationItem>

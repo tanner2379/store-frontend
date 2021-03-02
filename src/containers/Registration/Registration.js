@@ -71,6 +71,7 @@ const Registration = props => {
     .then(response => {
       if (response.data.status === "created") {
         setUserInfo({loggedIn: 'LOGGED_IN', user: response.data.user})
+        props.history.push('/');
       } else {
         console.log("Registration Error")
       }
@@ -89,7 +90,8 @@ const Registration = props => {
     }, { withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
-        setUserInfo({loggedIn: 'LOGGED_IN', user: response.data.user})
+        setUserInfo({loggedIn: 'LOGGED_IN', user: response.data.user});
+        props.history.push('/');
       } else {
         console.log("Registration Error")
       }

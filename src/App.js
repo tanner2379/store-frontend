@@ -70,7 +70,8 @@ const App = props => {
                 <Route path="/categories/new" exact component={NewCategory} />
                 <Route path="/categories/:slug/edit" component={EditCategory} />
                 <Route path="/categories/:slug" component={Category} />
-                <Route path="/sign_in" component={Registration} />
+                <Route path="/sign_in" render={props => (
+                  <Registration {...props} />)} />
                 <Route path="/users/:id/edit" component={EditProfile} />
                 <Route path="/users/:id" component={Profile} />
                 <Route path="/cart" component={Cart} />
