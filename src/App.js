@@ -1,6 +1,6 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import axios from 'axios';
+import axios from './axios-orders';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -36,49 +36,60 @@ import Invoices from './containers/Invoices/Invoices';
 const App = props => {
   const [userInfo, setUserInfo] = useState({loggedIn: 'NOT_LOGGED_IN', user: {}});
 
-  const checkLoginStatus = () => {
-
-    axios.get('http://localhost:5000/logged_in', {withCredentials: true})
+  useEffect(() => {
+    axios.get('/logged_in', {withCredentials: true})
       .then(response => {
         if (response.data.logged_in && userInfo.loggedIn === 'NOT_LOGGED_IN') {
-          setUserInfo({loggedIn: 'LOGGED_IN', user: response.data.user})
+          setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user})
         } else if (!response.data.logged_in && userInfo.loggedIn === 'LOGGED_IN') {
-          setUserInfo({loggedIn: 'NOT_LOGGED_IN', user: {}})
+          setUserInfo({...userInfo, loggedIn: 'NOT_LOGGED_IN', user: {}})
         }
       }).catch(error => {
         console.log("check login error", error);
       })
-  }
-
-  useEffect(() => {
-    checkLoginStatus();
-  }, [])
+  }, [userInfo, setUserInfo])
 
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
-      <Layout>
+      <Layout {...props}>
         <Suspense fallback={<p>Loading...</p>}>
           <Route render={({location})  => (
             <TransitionElement multiple assignedKey={location.key} animation='fade' timeout={1000}>
               <Switch location={location}>
-                <Route path="/" exact component={Home} />
-                <Route path="/products" exact component={Products} />
-                <Route path="/products/new" exact component={NewProduct} />
-                <Route path="/products/:slug/edit" component={EditProduct} />
-                <Route path="/products/:slug" component={Product} />
-                <Route path="/categories" exact component={Categories} />
-                <Route path="/categories/new" exact component={NewCategory} />
-                <Route path="/categories/:slug/edit" component={EditCategory} />
-                <Route path="/categories/:slug" component={Category} />
+                <Route path="/" exact render={props => (
+                  <Home {...props} />)} />
+                <Route path="/products" exact render={props => (
+                  <Products {...props} />)} />
+                <Route path="/products/new" exact render={props => (
+                  <NewProduct {...props} />)} />
+                <Route path="/products/:slug/edit" render={props => (
+                  <EditProduct {...props} />)} />
+                <Route path="/products/:slug" render={props => (
+                  <Product {...props} />)} />
+                <Route path="/categories" exact render={props => (
+                  <Categories {...props} />)} />
+                <Route path="/categories/new" exact render={props => (
+                  <NewCategory {...props} />)} />
+                <Route path="/categories/:slug/edit" render={props => (
+                  <EditCategory {...props} />)} />
+                <Route path="/categories/:slug" render={props => (
+                  <Category {...props} />)} />
                 <Route path="/sign_in" render={props => (
                   <Registration {...props} />)} />
-                <Route path="/users/:id/edit" component={EditProfile} />
-                <Route path="/users/:id" component={Profile} />
-                <Route path="/cart" component={Cart} />
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/invoices" component={Invoices} />
-                <Route path="/checkout" component={Checkout} />
-                <Route path="/confirm" component={Confirm} />
+                <Route path="/users/:slug/edit" render={props => (
+                  <EditProfile {...props} />)} />
+                <Route path="/users/:slug" render={props => (
+                  <Profile {...props} />)} />
+                <Route path="/cart" render={props => (
+                  <Cart {...props} />)} />
+                <Route path="/dashboard" render={props => (
+                  <Dashboard {...props} />)} />
+                <Route path="/invoices" render={props => (
+                  <Invoices {...props} />)} />
+                <Route path="/checkout" render={props => (
+                  <Checkout {...props} />)} />
+                <Route path="/confirm" render={props => (
+                  <Confirm {...props} />)} />
                 <Redirect to="/" />
               </Switch>
             </TransitionElement>

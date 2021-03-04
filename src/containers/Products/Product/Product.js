@@ -1,15 +1,78 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import axios from '../../../axios-orders';
+
+import { UserContext } from '../../../contexts/UserContext';
+import Aux from '../../../hoc/Aux/Aux';
+
+import classes from './Product.module.css';
 
 const Product = props => {
   const { slug } = useParams();
-  
+  const userInfo = useContext(UserContext)[0];
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    console.log("hello")
+    axios.get(`/products/${slug}`, {
+      slug: slug},
+      { withCredentials: true })
+      .then(response => {
+        setProduct(response.data)
+      })
+      .catch(error => {
+        console.log("Error fetching product", error);
+      })
+  }, [])
+
+  const handleDelete = event => {
+    axios.delete(`/products/${slug}`, {
+      slug: slug
+    }, { withCredentials: true})
+    .then(response => {
+      if (response.data.status === "deleted") {
+        props.history.push(`/users/${userInfo.user.id}`);
+      } else {
+        console.log("Product Delete Error", response.data.status)
+      }
+    }).catch(error => {
+      console.log("Product Delete Error", error);
+    });
+    
+    event.preventDefault();
+  }
+
+
   return (
-    <div>
-      <h1>Product Show Page</h1>
-      <p>Product slug is {slug}</p>
+    <div className={classes.Product}>
+      {userInfo.user.vendor
+        ? <Aux>
+            <Link to={`/products/${slug}/edit`}>Edit Product</Link>
+            <button onClick={(event) => handleDelete(event)}>Delete Product</button>
+          </Aux>
+        : null
+      }
+      <h1 className={classes.Title}>{product.name}</h1>
+      {/* {products.map(product =>{
+        if (product.images[0]) {
+          return <ProductThumb 
+            key={product.id}
+            name={product.name}
+            description={product.description}
+            price={product.price}
+            imageUrl={'http://localhost:5000' + product.images[0].url}
+            />
+        } 
+        else {
+          return <ProductThumb
+            key={product.id}
+            name={product.name}
+            description={product.description}
+            price={product.price} />
+        }
+      })} */}
     </div>
   )
 }
 
-export default Product
+export default Product;

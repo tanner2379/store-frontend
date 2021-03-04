@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import axios from '../../axios-orders';
 
-import { updateObject, checkValidity } from '../../shared/utility';
+import { inputChangedHandler } from '../../shared/utility';
 import { UserContext } from '../../contexts/UserContext';
 
 
@@ -38,30 +38,17 @@ const Registration = props => {
     },
   })
 
-  const [formIsValid, setFormIsValid] = useState(false);
+  const setFormIsValid = useState(false)[1];
 
-  const inputChangedHandler = (event) => {
-    const updatedFormElement = updateObject(formValue[event.target.name], {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, formValue[event.target.name].validation),
-      touched: true,
-    });
+  const handleChange = event => {
+    const [valueOut, validOut] = inputChangedHandler(event, formValue);
 
-    const updatedFormValue = updateObject(formValue, {
-      [event.target.name]: updatedFormElement
-    })
-
-    let formValid = true;
-    for (let inputIdentifier in updatedFormValue) {
-      formValid = updatedFormValue[inputIdentifier].valid && formValid;
-    }
-
-    setFormValue(updatedFormValue);
-    setFormIsValid(formValid);
-  };
+    setFormValue(valueOut);
+    setFormIsValid(validOut);
+  }
 
   const handleRegister = event => {
-    axios.post('http://localhost:5000/registrations', {
+    axios.post('/registrations', {
       user: {
         email: formValue.email.value,
         password: formValue.password.value,
@@ -70,7 +57,7 @@ const Registration = props => {
     }, { withCredentials: true})
     .then(response => {
       if (response.data.status === "created") {
-        setUserInfo({loggedIn: 'LOGGED_IN', user: response.data.user})
+        setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user})
         props.history.push('/');
       } else {
         console.log("Registration Error")
@@ -83,14 +70,14 @@ const Registration = props => {
   }
 
   const handleLogin = event => {
-    axios.post('http://localhost:5000/sessions', {
+    axios.post('/sessions', {
       user: {
         email: formValue.email.value,
         password: formValue.password.value,      }
     }, { withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
-        setUserInfo({loggedIn: 'LOGGED_IN', user: response.data.user});
+        setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user});
         props.history.push('/');
       } else {
         console.log("Registration Error")
@@ -114,13 +101,13 @@ const Registration = props => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                onChange={(event) => inputChangedHandler(event)}
+                onChange={(event) => handleChange(event)}
                 required />
               <input
                 type="password"
                 name="password"
                 placeholder="Password"
-                onChange={(event) => inputChangedHandler(event)}
+                onChange={(event) => handleChange(event)}
                 required />
               <button type="submit" className={classes.logButton}>Log In</button>
             </form>
@@ -132,19 +119,19 @@ const Registration = props => {
               type="email"
               name="email"
               placeholder="Email"
-              onChange={(event) => inputChangedHandler(event)}
+              onChange={(event) => handleChange(event)}
               required />
             <input
               type="password"
               name="password"
               placeholder="Password"
-              onChange={(event) => inputChangedHandler(event)}
+              onChange={(event) => handleChange(event)}
               required />
             <input
               type="password"
               name="password_confirmation"
               placeholder="Password Confirmation"
-              onChange={(event) => inputChangedHandler(event)}
+              onChange={(event) => handleChange(event)}
               required />
             <button type="submit">Register</button>
           </form>

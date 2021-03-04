@@ -8,9 +8,9 @@ import classes from './Toolbar.module.css';
 const Toolbar = props => {
   return (
     <header className={classes.Toolbar}>
-      <DrawerToggle clicked={props.drawerToggleClicked} />
+      <DrawerToggle {...props} clicked={props.drawerToggleClicked} />
       <nav className={classes.DesktopOnly}>
-        <NavigationItems />
+        <NavigationItems {...props} />
       </nav>
     </header>
   );

@@ -22,3 +22,22 @@ export const checkValidity = (value, rules) => {
 
   return isValid
 }
+
+export const inputChangedHandler = (event, formValue) => {
+  const updatedFormElement = updateObject(formValue[event.target.name], {
+    value: event.target.value,
+    valid: checkValidity(event.target.value, formValue[event.target.name].validation),
+    touched: true,
+  });
+
+  const updatedFormValue = updateObject(formValue, {
+    [event.target.name]: updatedFormElement
+  })
+
+  let formValid = true;
+  for (let inputIdentifier in updatedFormValue) {
+    formValid = updatedFormValue[inputIdentifier].valid && formValid;
+  }
+
+  return [updatedFormValue, formValid]
+};

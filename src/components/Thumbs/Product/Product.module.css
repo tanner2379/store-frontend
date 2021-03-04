@@ -1,0 +1,20 @@
+.Product {
+  display: inline-block;
+  margin-left: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.Product img {
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 500;
+}
