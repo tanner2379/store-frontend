@@ -47,7 +47,7 @@ const App = props => {
       }).catch(error => {
         console.log("check login error", error);
       })
-  }, [userInfo, setUserInfo])
+  }, [])
 
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>

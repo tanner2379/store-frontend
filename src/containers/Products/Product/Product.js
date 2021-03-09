@@ -42,6 +42,42 @@ const Product = props => {
     event.preventDefault();
   }
 
+  const handleAddToCart = () => {
+    if (userInfo.loggedIn === "LOGGED_IN") {
+      axios.post(`/cart_items`, {
+        user_id: userInfo.user.id,
+        product_id: product.id,
+        quantity: 1
+      }, { withCredentials: true })
+      .then(response => {
+        if (response.data.status === "created"){
+          console.log("created", response.data);
+          props.history.push('/cart');
+        } else {
+          console.log("Cart Item creation error");
+        }
+      })
+      .catch(error => {
+        console.log("Cart Item creation error", error);
+      })
+    } else {
+        axios.post(`/cart_items`, {
+          product_id: product.id,
+          quantity: 1
+        }, { withCredentials: true })
+        .then(response => {
+          if (response.data.status === "created"){
+            console.log("created", response.data);
+            props.history.push('/cart');
+          } else {
+            console.log("Cart Item creation error");
+          }
+        })
+        .catch(error => {
+          console.log("Cart Item creation error", error);
+        })
+    }
+  }
 
   return (
     <div className={classes.Product}>
@@ -53,6 +89,7 @@ const Product = props => {
         : null
       }
       <h1 className={classes.Title}>{product.name}</h1>
+      <button onClick={handleAddToCart} >Add to Cart</button>
       {/* {products.map(product =>{
         if (product.images[0]) {
           return <ProductThumb 

@@ -1,0 +1,21 @@
+.CartItem {
+  display: grid;
+  width: 80%;
+  margin: 20px;
+}
+
+.CartItem img {
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.CartItem p {
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.CartItem button {
+  grid-row-start: 1;
+  grid-row-end: 1;
+  cursor: pointer;
+}
