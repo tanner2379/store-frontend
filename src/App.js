@@ -34,7 +34,7 @@ import Dashboard from './containers/Dashboard/Dashboard'
 import Invoices from './containers/Invoices/Invoices';
 
 const App = props => {
-  const [userInfo, setUserInfo] = useState({loggedIn: 'NOT_LOGGED_IN', user: {}});
+  const [userInfo, setUserInfo] = useState({loggedIn: 'NOT_LOGGED_IN', user: {}, cartItems: [], paymentIntent: ''});
 
   useEffect(() => {
     axios.get('/logged_in', {withCredentials: true})

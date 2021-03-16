@@ -9,7 +9,7 @@ import classes from './Product.module.css';
 
 const Product = props => {
   const { slug } = useParams();
-  const userInfo = useContext(UserContext)[0];
+  const [userInfo, setUserInfo] = useContext(UserContext);
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -52,6 +52,9 @@ const Product = props => {
       .then(response => {
         if (response.data.status === "created"){
           console.log("created", response.data);
+          if (!userInfo.cartItems.includes(response.data.cart_item.id)){
+            setUserInfo({...userInfo, cartItems: [...userInfo.cartItems, response.data.cart_item.id]})
+          }
           props.history.push('/cart');
         } else {
           console.log("Cart Item creation error");

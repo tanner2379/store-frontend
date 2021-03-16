@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
 import Aux from '../Aux/Aux';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import Footer from '../../components/Footer/Footer';
 
 import classes from './Layout.module.css'
+
+const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
 const Layout = props => {
   const [sideDrawerVisible, setSideDrawerVisible] = useState(false);
@@ -22,9 +27,12 @@ const Layout = props => {
     <Aux>
       <Toolbar {...props} drawerToggleClicked={sideDrawerToggleHandler} />
       <SideDrawer {...props} open={sideDrawerVisible} closed={sideDrawerClosedHandler} />
-      <div className={classes.Content}>
-        {props.children}
-      </div>
+      <Elements stripe={stripePromise}>
+        <div className={classes.Content}>
+          {props.children}
+        </div>
+      </Elements>
+      
       <Footer />
     </Aux>
   );

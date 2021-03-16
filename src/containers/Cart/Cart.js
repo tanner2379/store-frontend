@@ -1,32 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../axios-orders';
+
+import { UserContext } from '../../contexts/UserContext';
 
 import CartItem from './CartItem/CartItem';
 import Aux from '../../hoc/Aux/Aux';
 
 const Cart = props => {
-  const [cartItems, setCartItems] = useState({});
+  const [userInfo, setUserInfo] = useContext(UserContext);
   
   useEffect(() => {
     axios.get('/cart_items', { withCredentials: true})
       .then(response => {
-        setCartItems(response.data.cart_items);
+        setUserInfo({...userInfo, cartItems: response.data.cart_items});
       })
       .catch(error => {
         console.log("Cart Item retrieval error", error);
       })
   }, [])
 
-  const handleDelete = () => {
+  const handleDelete = (cartItemId) => {
+    const cartItems = userInfo.cartItems;
+    const index = cartItems.indexOf(cartItemId);
+    if (index > -1) {
+      cartItems.splice(index, 1);
+      setUserInfo({...userInfo, cartItems: cartItems})
+    }
     props.history.push('/cart');
   }
   
   let cartList = null;
-  if (cartItems && cartItems[0]) {
+  if (userInfo.cartItems) {
     cartList = (
       <Aux>
-        {cartItems.map(cartItem => {
+        {userInfo.cartItems.map(cartItem => {
           return(
             <CartItem
               key={cartItem.id}
@@ -35,7 +43,7 @@ const Cart = props => {
               productName={cartItem.product_name}
               productPrice={cartItem.product_price}
               quantity={cartItem.quantity}
-              handleDelete={handleDelete} />
+              handleDelete={() => handleDelete(cartItem.id)} />
             )
           }
         )}
@@ -43,13 +51,16 @@ const Cart = props => {
     )
   }
 
+  let checkoutLink = null;
+  if (userInfo.cartItems) {
+    checkoutLink = <Link to={'/checkout'}>Checkout</Link>
+  }
+
   return (
     <div>
       Your Cart
       {cartList}
-      <Link to={'/checkout'}>
-        Checkout
-      </Link>
+      {checkoutLink}
     </div>
   )
 }

@@ -18,8 +18,6 @@ const Products = props => {
     })
   }, [])
 
-  console.log(products);
-
   return (
     <div>
       <h1 className={classes.Title}>Our Products</h1>
