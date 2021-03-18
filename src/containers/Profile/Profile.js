@@ -11,7 +11,7 @@ const Profile = props => {
 
   const handleDelete = event => {
     axios.delete(`/registrations/${id}`, {
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.status === "deleted") {
         setUserInfo({...userInfo, loggedIn: 'NOT_LOGGED_IN', user: {}})

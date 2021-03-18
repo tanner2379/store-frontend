@@ -12,7 +12,7 @@ const Invoices = props => {
   const [invoiceId, setInvoiceId] = useState(null);
 
   useEffect(() => {
-    axios.get('/invoices', { withCredentials: true })
+    axios.get('/invoices')
       .then(response => {
         setInvoices(response.data);
       })

@@ -35,7 +35,7 @@ const New = props => {
         category: {
           name: formValue.name.value
         },
-      }, {withCredentials: true})
+      })
       .then(response => {
         console.log("Created!", response);
         props.history.push(`/users/${userInfo.user.id}`)

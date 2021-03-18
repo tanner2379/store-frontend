@@ -10,7 +10,7 @@ const Products = props => {
   const [products, setProducts] = useState([])
   
   useEffect(() => {
-    axios.get('/products', {withCredentials: true})
+    axios.get('/products')
     .then(response => {
       setProducts(response.data);
     }).catch(error => {
@@ -29,7 +29,7 @@ const Products = props => {
             slug={product.slug}
             description={product.description}
             price={product.price}
-            imageUrl={'http://localhost:5000' + product.images[0].url}
+            imageUrl={'http://localhost:5000/' + product.images[0].url}
             />
         } 
         else {

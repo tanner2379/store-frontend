@@ -8,7 +8,7 @@ const Dashboard = props => {
   const [products, setProducts] = useState([])
   
   useEffect(() => {
-    axios.get('/products', {withCredentials: true})
+    axios.get('/products')
     .then(response => {
       setProducts(response.data);
     }).catch(error => {
@@ -17,7 +17,7 @@ const Dashboard = props => {
   }, [])
 
   const handleDelete = (event, productId) => (
-    axios.delete(`/products/${productId}`, { withCredentials: true})
+    axios.delete(`/products/${productId}`)
       .then(response => {
         console.log("Product Deleted!", response);
       })
@@ -48,7 +48,7 @@ const Dashboard = props => {
           {products.map(product => {
             return(
               <tr key={product.id}>
-                <td><img src={'http://localhost:5000' + product.images[0].url} alt='productImage' width='100px' height='100px' /></td>
+                <td><img src={'http://localhost:5000/' + product.images[0].url} alt='productImage' width='100px' height='100px' /></td>
                 <td>{product.name}</td>
                 <td>{product.order_count}</td>
                 <td>{currency(product.price)}</td>

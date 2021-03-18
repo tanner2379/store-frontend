@@ -6,7 +6,7 @@ const Categories = props => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get('/categories', {withCredentials: true})
+    axios.get('/categories')
     .then(response => {
       setCategories(response.data);
     }).catch(error => {

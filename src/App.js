@@ -3,6 +3,8 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import axios from './axios-orders';
 
 import { UserContext } from './contexts/UserContext';
+import { CartItemContext } from './contexts/CartItemContext';
+import { PaymentIntentContext } from './contexts/PaymentIntentContext';
 
 import Layout from './hoc/Layouts/Layout';
 import TransitionElement from './components/TransitionElement/TransitionElement';
@@ -34,14 +36,17 @@ import Dashboard from './containers/Dashboard/Dashboard'
 import Invoices from './containers/Invoices/Invoices';
 
 const App = props => {
-  const [userInfo, setUserInfo] = useState({loggedIn: 'NOT_LOGGED_IN', user: {}, cartItems: [], paymentIntent: ''});
+  const [userInfo, setUserInfo] = useState({loggedIn: 'NOT_LOGGED_IN', user: {}});
+  const [cartItems, setCartItems] = useState([]);
+  const [paymentIntent, setPaymentIntent] = useState('');
 
   useEffect(() => {
-    axios.get('/logged_in', {withCredentials: true})
+    axios.get('/logged_in')
       .then(response => {
         if (response.data.logged_in && userInfo.loggedIn === 'NOT_LOGGED_IN') {
           setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user})
         } else if (!response.data.logged_in && userInfo.loggedIn === 'LOGGED_IN') {
+          console.log("hello");
           setUserInfo({...userInfo, loggedIn: 'NOT_LOGGED_IN', user: {}})
         }
       }).catch(error => {
@@ -80,16 +85,24 @@ const App = props => {
                   <EditProfile {...props} />)} />
                 <Route path="/users/:slug" render={props => (
                   <Profile {...props} />)} />
-                <Route path="/cart" render={props => (
-                  <Cart {...props} />)} />
+
                 <Route path="/dashboard" render={props => (
                   <Dashboard {...props} />)} />
                 <Route path="/invoices" render={props => (
                   <Invoices {...props} />)} />
-                <Route path="/checkout" render={props => (
-                  <Checkout {...props} />)} />
-                <Route path="/confirm" render={props => (
-                  <Confirm {...props} />)} />
+
+                <CartItemContext.Provider value={[cartItems, setCartItems]}>
+                  <Route path="/cart" render={props => (
+                    <Cart {...props} />)} />
+
+                  <PaymentIntentContext.Provider value={[paymentIntent, setPaymentIntent]}>
+                    <Route path="/checkout" render={props => (
+                      <Checkout {...props} />)} />
+                    <Route path="/confirm" render={props => (
+                      <Confirm {...props} />)} />
+                  </PaymentIntentContext.Provider>
+                </CartItemContext.Provider>
+
                 <Redirect to="/" />
               </Switch>
             </TransitionElement>

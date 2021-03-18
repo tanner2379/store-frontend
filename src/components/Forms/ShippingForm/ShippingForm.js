@@ -40,7 +40,7 @@ const ShippingForm = props => {
       invoice_id: props.invoiceId,
       shipping_company: formValue.shippingCompany.value,
       tracking_number: formValue.trackingNumber.value,
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.status === 200 ) {
         console.log("Success!");

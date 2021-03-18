@@ -17,7 +17,7 @@ const Edit = props => {
   useEffect(() => {
     axios.get(`/products/${slug}`,{
       slug: slug
-    }, { withCredentials: true })
+    })
     .then(response => {
       setProduct(response.data)
     })

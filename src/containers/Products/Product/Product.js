@@ -12,11 +12,11 @@ const Product = props => {
   const [userInfo, setUserInfo] = useContext(UserContext);
   const [product, setProduct] = useState({});
 
+  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
-    console.log("hello")
     axios.get(`/products/${slug}`, {
-      slug: slug},
-      { withCredentials: true })
+      slug: slug})
       .then(response => {
         setProduct(response.data)
       })
@@ -28,7 +28,7 @@ const Product = props => {
   const handleDelete = event => {
     axios.delete(`/products/${slug}`, {
       slug: slug
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.status === "deleted") {
         props.history.push(`/users/${userInfo.user.id}`);
@@ -47,8 +47,8 @@ const Product = props => {
       axios.post(`/cart_items`, {
         user_id: userInfo.user.id,
         product_id: product.id,
-        quantity: 1
-      }, { withCredentials: true })
+        quantity: quantity
+      })
       .then(response => {
         if (response.data.status === "created"){
           console.log("created", response.data);
@@ -67,7 +67,7 @@ const Product = props => {
         axios.post(`/cart_items`, {
           product_id: product.id,
           quantity: 1
-        }, { withCredentials: true })
+        })
         .then(response => {
           if (response.data.status === "created"){
             console.log("created", response.data);
@@ -82,6 +82,16 @@ const Product = props => {
     }
   }
 
+  const handleQuantityAdd = () => {
+    setQuantity(quantity + 1);
+  }
+
+  const handleQuantitySubtract = () => {
+    if (quantity > 0) {
+      setQuantity(quantity - 1);
+    }
+  }
+
   return (
     <div className={classes.Product}>
       {userInfo.user.vendor
@@ -92,6 +102,9 @@ const Product = props => {
         : null
       }
       <h1 className={classes.Title}>{product.name}</h1>
+      <button onClick={handleQuantitySubtract} >-</button>
+      <p>{quantity}</p>
+      <button onClick={handleQuantityAdd} >+</button>
       <button onClick={handleAddToCart} >Add to Cart</button>
       {/* {products.map(product =>{
         if (product.images[0]) {
@@ -100,7 +113,7 @@ const Product = props => {
             name={product.name}
             description={product.description}
             price={product.price}
-            imageUrl={'http://localhost:5000' + product.images[0].url}
+            imageUrl={'http://localhost:5000/' + product.images[0].url}
             />
         } 
         else {

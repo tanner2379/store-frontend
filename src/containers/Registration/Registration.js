@@ -54,7 +54,7 @@ const Registration = props => {
         password: formValue.password.value,
         password_confirmation: formValue.password_confirmation.value,
       }
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.status === "created") {
         setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user})
@@ -73,8 +73,9 @@ const Registration = props => {
     axios.post('/sessions', {
       user: {
         email: formValue.email.value,
-        password: formValue.password.value,      }
-    }, { withCredentials: true})
+        password: formValue.password.value,
+      }
+    })
     .then(response => {
       if (response.data.logged_in) {
         setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user});

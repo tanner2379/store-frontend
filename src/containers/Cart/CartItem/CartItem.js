@@ -8,7 +8,7 @@ import classes from './CartItem.module.css';
 const CartItem = props => {
 
   const handleRemove = event => {
-    axios.delete(`/cart_items/${props.id}`, { withCredentials: true})
+    axios.delete(`/cart_items/${props.id}`)
       .then(response => {
         if (response.data.satus = "deleted") {
           console.log("Deleted!", response.data);
@@ -24,11 +24,11 @@ const CartItem = props => {
 
   return(
     <div className={classes.CartItem}>
-      <img src={'http://localhost:5000' + props.imageUrl} alt='cartItem Image' width="100px" height="100px" />
+      <img src={'http://localhost:5000/' + props.imageUrl} alt='cartItem Image' width="100px" height="100px" />
       <p>{props.productName}</p>
       <p>{currency(props.productPrice)}</p>
       <p>{props.quantity}</p>
-      <button onClick={(event) =>handleRemove(event)}>Remove from Cart</button>
+      <button onClick={(event) => handleRemove(event)}>Remove from Cart</button>
     </div>
   )
 }

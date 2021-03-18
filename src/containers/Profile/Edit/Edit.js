@@ -52,7 +52,7 @@ const Edit = props => {
         password: formValue.password.value,
         password_confirmation: formValue.password_confirmation.value,
       }
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.status === "updated") {
         setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user})

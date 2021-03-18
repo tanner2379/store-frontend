@@ -1,15 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from '../../axios-orders';
-import { UserContext } from '../../contexts/UserContext';
+
+import { CartItemContext } from '../../contexts/CartItemContext';
+import { PaymentIntentContext } from '../../contexts/PaymentIntentContext';
 
 const Confirm = props => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [userInfo, setUserInfo] = useContext(UserContext);
-  const paymentIntent = userInfo.paymentIntent;
-  const cartItems = userInfo.cartItems.map(cartItem => {
+  const paymentIntent = useContext(PaymentIntentContext)[0];
+  const cartItems = useContext(CartItemContext)[0];
+  const itemIds = cartItems.map(cartItem => {
     return cartItem.id
   });
 
@@ -29,8 +31,8 @@ const Confirm = props => {
       // stripe.confirmCardPayment(paymentIntent);
       axios.post('/confirm', {
         payment_intent: paymentIntent,
-        cart_items: cartItems
-      }, { withCredentials: true })
+        cart_items: itemIds
+      })
         .then(response => {
           if (response.status === 200){
             setProcessingTo(false);

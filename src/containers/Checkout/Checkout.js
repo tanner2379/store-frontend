@@ -3,6 +3,8 @@ import axios from '../../axios-orders';
 
 import { inputChangedHandler } from '../../shared/utility';
 import { UserContext } from '../../contexts/UserContext';
+import { CartItemContext } from '../../contexts/CartItemContext';
+import { PaymentIntentContext } from '../../contexts/PaymentIntentContext';
 
 import PaymentMethodSelector from '../../components/Selectors/PaymentMethod/PaymentMethod';
 import ShippingSelector from '../../components/Selectors/Shipping/Shipping';
@@ -16,7 +18,9 @@ import classes from './Checkout.module.css';
 
 
 const Checkout = props => {
-  const [userInfo, setUserInfo] = useContext(UserContext);
+  const userInfo = useContext(UserContext)[0];
+  const cartItems = useContext(CartItemContext)[0];
+  const setPaymentIntent = useContext(PaymentIntentContext)[1];
   const [shippingOptions, setShippingOptions] = useState([]);
   const [paymentMethodOptions, setPaymentMethodOptions] = useState([]);
 
@@ -137,7 +141,7 @@ const Checkout = props => {
 
   useEffect(() => {
     if (userInfo.loggedIn === 'LOGGED_IN'){
-      axios.get('/charges/new', { withCredentials: true })
+      axios.get('/customerinfo')
       .then(response => {
         setShippingOptions(response.data.shippingOptions);
         setPaymentMethodOptions(response.data.paymentOptions);
@@ -147,12 +151,12 @@ const Checkout = props => {
       }, [])
     }
 
-    let cartItems = [];
-    userInfo.cartItems.map(cartItem => {
-      cartItems.push(cartItem.id)
+    let itemIds = []
+    cartItems.map(cartItem => {
+      itemIds.push(cartItem.id);
     });
 
-    setFormValue({...formValue, cartItems: {...formValue.cartItems, value: cartItems}})
+    setFormValue({...formValue, cartItems: {...formValue.cartItems, value: itemIds}})
   }, [userInfo.loggedIn])
 
   const setFormIsValid = useState(false)[1];
@@ -180,11 +184,11 @@ const Checkout = props => {
       country: formValue.country.value,
       state: formValue.state.value,
       postal_code: formValue.postalCode.value
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.status === 200 ) {
         console.log(response.data.payment_intent);
-        setUserInfo({...userInfo, paymentIntent: response.data.payment_intent});
+        setPaymentIntent(response.data.payment_intent);
         props.history.push('/confirm');
       } else {
         console.log("Form Error")

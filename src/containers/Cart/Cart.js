@@ -2,18 +2,18 @@ import React, {useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../axios-orders';
 
-import { UserContext } from '../../contexts/UserContext';
+import { CartItemContext } from '../../contexts/CartItemContext';
 
 import CartItem from './CartItem/CartItem';
 import Aux from '../../hoc/Aux/Aux';
 
 const Cart = props => {
-  const [userInfo, setUserInfo] = useContext(UserContext);
+  const [cartItems, setCartItems] = useContext(CartItemContext);
   
   useEffect(() => {
-    axios.get('/cart_items', { withCredentials: true})
+    axios.get('/cart_items')
       .then(response => {
-        setUserInfo({...userInfo, cartItems: response.data.cart_items});
+        setCartItems(response.data.cart_items);
       })
       .catch(error => {
         console.log("Cart Item retrieval error", error);
@@ -21,20 +21,19 @@ const Cart = props => {
   }, [])
 
   const handleDelete = (cartItemId) => {
-    const cartItems = userInfo.cartItems;
     const index = cartItems.indexOf(cartItemId);
     if (index > -1) {
       cartItems.splice(index, 1);
-      setUserInfo({...userInfo, cartItems: cartItems})
+      setCartItems(cartItems)
     }
     props.history.push('/cart');
   }
   
   let cartList = null;
-  if (userInfo.cartItems) {
+  if (cartItems) {
     cartList = (
       <Aux>
-        {userInfo.cartItems.map(cartItem => {
+        {cartItems.map(cartItem => {
           return(
             <CartItem
               key={cartItem.id}
@@ -52,7 +51,7 @@ const Cart = props => {
   }
 
   let checkoutLink = null;
-  if (userInfo.cartItems) {
+  if (cartItems) {
     checkoutLink = <Link to={'/checkout'}>Checkout</Link>
   }
 

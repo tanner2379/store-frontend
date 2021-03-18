@@ -26,7 +26,7 @@ const NavigationItems = props => {
 
   const handleLogout = () => {
     axios.delete(`/logout`, {
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.logged_out) {
         setUserInfo({...userInfo, loggedIn: 'NOT_LOGGED_IN', user: {}});

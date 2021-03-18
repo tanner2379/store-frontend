@@ -17,7 +17,7 @@ const Category = props => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get(`/categories/${slug}`, { withCredentials: true })
+    axios.get(`/categories/${slug}`)
       .then(response => {
         setCategory(response.data.category)
         setProducts(response.data.products);
@@ -30,7 +30,7 @@ const Category = props => {
   const handleDelete = event => {
     axios.delete(`/categories/${slug}`, {
       slug: slug
-    }, { withCredentials: true})
+    })
     .then(response => {
       if (response.data.status === "deleted") {
         props.history.push(`/users/${userInfo.user.id}`);
@@ -63,7 +63,7 @@ const Category = props => {
             slug={product.slug}
             description={product.description}
             price={product.price}
-            imageUrl={'http://localhost:5000' + product.images[0].url}
+            imageUrl={'http://localhost:5000/' + product.images[0].url}
             />
         } 
         else {

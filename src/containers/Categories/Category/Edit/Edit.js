@@ -15,7 +15,7 @@ const Edit = props => {
   useEffect(() => {
     axios.get(`/categories/${slug}/just_category`,{
       slug: slug
-    }, { withCredentials: true })
+    })
     .then(response => {
       console.log(response.data)
       setCategory(response.data.category)
@@ -51,7 +51,7 @@ const Edit = props => {
         category: {
           name: formValue.name.value
         },
-      }, {withCredentials: true})
+      })
       .then(response => {
         console.log("Created!", response);
         props.history.push(`/users/${userInfo.user.id}`)
