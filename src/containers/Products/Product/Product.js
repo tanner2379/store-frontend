@@ -3,13 +3,16 @@ import { useParams, Link } from 'react-router-dom';
 import axios from '../../../axios-orders';
 
 import { UserContext } from '../../../contexts/UserContext';
+import { CartItemContext } from '../../../contexts/CartItemContext';
+
 import Aux from '../../../hoc/Aux/Aux';
 
 import classes from './Product.module.css';
 
 const Product = props => {
   const { slug } = useParams();
-  const [userInfo, setUserInfo] = useContext(UserContext);
+  const userInfo = useContext(UserContext)[0];
+  const [cartItems, setCartItems] = useContext(CartItemContext);
   const [product, setProduct] = useState({});
 
   const [quantity, setQuantity] = useState(1);
@@ -19,6 +22,9 @@ const Product = props => {
       slug: slug})
       .then(response => {
         setProduct(response.data)
+        if (response.data.in_stock === 0) {
+          setQuantity(0);
+        }
       })
       .catch(error => {
         console.log("Error fetching product", error);
@@ -51,9 +57,9 @@ const Product = props => {
       })
       .then(response => {
         if (response.data.status === "created"){
-          console.log("created", response.data);
-          if (!userInfo.cartItems.includes(response.data.cart_item.id)){
-            setUserInfo({...userInfo, cartItems: [...userInfo.cartItems, response.data.cart_item.id]})
+          console.log("created", response.data.cart_item);
+          if (!cartItems.includes(response.data.cart_item)){
+            setCartItems([...cartItems, response.data.cart_item])
           }
           props.history.push('/cart');
         } else {
@@ -83,7 +89,9 @@ const Product = props => {
   }
 
   const handleQuantityAdd = () => {
-    setQuantity(quantity + 1);
+    if (quantity < product.in_stock) {
+      setQuantity(quantity + 1);
+    }
   }
 
   const handleQuantitySubtract = () => {
@@ -102,10 +110,16 @@ const Product = props => {
         : null
       }
       <h1 className={classes.Title}>{product.name}</h1>
-      <button onClick={handleQuantitySubtract} >-</button>
-      <p>{quantity}</p>
-      <button onClick={handleQuantityAdd} >+</button>
-      <button onClick={handleAddToCart} >Add to Cart</button>
+        {
+          quantity > 0
+          ?  <Aux>
+                <button onClick={handleQuantitySubtract} >-</button>
+                <p>{quantity}</p>
+                <button onClick={handleQuantityAdd} >+</button>
+                <button onClick={handleAddToCart} >Add to Cart</button>
+              </Aux>  
+          : <p>Out of Stock</p>
+        }
       {/* {products.map(product =>{
         if (product.images[0]) {
           return <ProductThumb 

@@ -52,6 +52,14 @@ const Edit = props => {
       valid: false,
       touched: false,
     },
+    inStock: {
+      value: '',
+      validation: {
+        required: true
+      },
+      valid: false,
+      touched: false,
+    },
     images: {
       value: [],
       validation: {
@@ -83,6 +91,7 @@ const Edit = props => {
       formData.append('name', formValue.name.value);
       formData.append('description', formValue.description.value);
       formData.append('price', formValue.price.value);
+      formData.append('in_stock', formValue.inStock.value);
       for(let i = 0; i < formValue.images.value.length; i++) {
         formData.append('images[]', formValue.images.value[i]);
       }
@@ -123,6 +132,12 @@ const Edit = props => {
             type="number"
             name="price"
             placeholder="Price"
+            onChange={(event) => handleChange(event)}
+            required />
+          <input
+            type="number"
+            name="inStock"
+            placeholder="Amount in Stock"
             onChange={(event) => handleChange(event)}
             required />
             <input

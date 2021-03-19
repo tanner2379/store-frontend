@@ -187,7 +187,6 @@ const Checkout = props => {
     })
     .then(response => {
       if (response.data.status === 200 ) {
-        console.log(response.data.payment_intent);
         setPaymentIntent(response.data.payment_intent);
         props.history.push('/confirm');
       } else {

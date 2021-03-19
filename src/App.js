@@ -56,42 +56,40 @@ const App = props => {
 
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
-      <Layout {...props}>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Route render={({location})  => (
-            <TransitionElement multiple assignedKey={location.key} animation='fade' timeout={1000}>
-              <Switch location={location}>
-                <Route path="/" exact render={props => (
-                  <Home {...props} />)} />
-                <Route path="/products" exact render={props => (
-                  <Products {...props} />)} />
-                <Route path="/products/new" exact render={props => (
-                  <NewProduct {...props} />)} />
-                <Route path="/products/:slug/edit" render={props => (
-                  <EditProduct {...props} />)} />
-                <Route path="/products/:slug" render={props => (
-                  <Product {...props} />)} />
-                <Route path="/categories" exact render={props => (
-                  <Categories {...props} />)} />
-                <Route path="/categories/new" exact render={props => (
-                  <NewCategory {...props} />)} />
-                <Route path="/categories/:slug/edit" render={props => (
-                  <EditCategory {...props} />)} />
-                <Route path="/categories/:slug" render={props => (
-                  <Category {...props} />)} />
-                <Route path="/sign_in" render={props => (
-                  <Registration {...props} />)} />
-                <Route path="/users/:slug/edit" render={props => (
-                  <EditProfile {...props} />)} />
-                <Route path="/users/:slug" render={props => (
-                  <Profile {...props} />)} />
-
-                <Route path="/dashboard" render={props => (
-                  <Dashboard {...props} />)} />
-                <Route path="/invoices" render={props => (
-                  <Invoices {...props} />)} />
-
-                <CartItemContext.Provider value={[cartItems, setCartItems]}>
+      <CartItemContext.Provider value={[cartItems, setCartItems]}>
+        <Layout {...props}>
+          <Suspense fallback={<p>Loading...</p>}>
+            <Route render={({location})  => (
+              <TransitionElement multiple assignedKey={location.key} animation='fade' timeout={1000}>
+                <Switch location={location}>
+                  <Route path="/" exact render={props => (
+                    <Home {...props} />)} />
+                  <Route path="/products" exact render={props => (
+                    <Products {...props} />)} />
+                  <Route path="/products/new" exact render={props => (
+                    <NewProduct {...props} />)} />
+                  <Route path="/products/:slug/edit" render={props => (
+                    <EditProduct {...props} />)} />
+                  <Route path="/products/:slug" render={props => (
+                    <Product {...props} />)} />
+                  <Route path="/categories" exact render={props => (
+                    <Categories {...props} />)} />
+                  <Route path="/categories/new" exact render={props => (
+                    <NewCategory {...props} />)} />
+                  <Route path="/categories/:slug/edit" render={props => (
+                    <EditCategory {...props} />)} />
+                  <Route path="/categories/:slug" render={props => (
+                    <Category {...props} />)} />
+                  <Route path="/sign_in" render={props => (
+                    <Registration {...props} />)} />
+                  <Route path="/users/:slug/edit" render={props => (
+                    <EditProfile {...props} />)} />
+                  <Route path="/users/:slug" render={props => (
+                    <Profile {...props} />)} />
+                  <Route path="/dashboard" render={props => (
+                    <Dashboard {...props} />)} />
+                  <Route path="/invoices" render={props => (
+                    <Invoices {...props} />)} /> 
                   <Route path="/cart" render={props => (
                     <Cart {...props} />)} />
 
@@ -101,14 +99,14 @@ const App = props => {
                     <Route path="/confirm" render={props => (
                       <Confirm {...props} />)} />
                   </PaymentIntentContext.Provider>
-                </CartItemContext.Provider>
 
-                <Redirect to="/" />
-              </Switch>
-            </TransitionElement>
-          )} />
-        </Suspense>
-      </Layout>
+                  <Redirect to="/" />
+                </Switch>
+              </TransitionElement>
+            )} />
+          </Suspense>
+        </Layout>
+      </CartItemContext.Provider>
     </UserContext.Provider>
   )
 };

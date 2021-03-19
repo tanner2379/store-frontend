@@ -14,7 +14,7 @@ const Dashboard = props => {
     }).catch(error => {
       console.log("Error Loading Products", error);
     })
-  }, [])
+  }, [])  
 
   const handleDelete = (event, productId) => (
     axios.delete(`/products/${productId}`)
@@ -41,6 +41,7 @@ const Dashboard = props => {
             <th scope="col">Product Name</th>
             <th scope="col">Items Sold</th>
             <th scope="col">Current Price</th>
+            <th scope="col">Amount in Stock</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -52,6 +53,7 @@ const Dashboard = props => {
                 <td>{product.name}</td>
                 <td>{product.order_count}</td>
                 <td>{currency(product.price)}</td>
+                <td>{product.in_stock}</td>
                 <td>
                   <Link to={`/products/${product.slug}/edit`}>Edit</Link>
                   <button onClick={(event) => handleDelete(event, product.id)}>Delete</button>
