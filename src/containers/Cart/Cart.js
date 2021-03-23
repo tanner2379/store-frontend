@@ -103,7 +103,11 @@ const Cart = props => {
               id={cartItem.id}
               imageUrl={cartItem.image_url}
               productName={cartItem.product_name}
-              productPrice={currency(cartItem.product_price)}
+              productPrice={
+                cartItem.product_price
+                ? currency(cartItem.product_price)
+                : null
+              }
               quantity={quantityArray[cartItems.indexOf(cartItem)]}
               increaseQuantity={() => handleQuantityAdd(cartItem.id, cartItem.product_in_stock, cartItems.indexOf(cartItem))}
               decreaseQuantity={() => handleQuantitySubtract(cartItem.id, cartItems.indexOf(cartItem))}
