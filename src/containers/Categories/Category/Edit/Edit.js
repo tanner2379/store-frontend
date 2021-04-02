@@ -33,7 +33,15 @@ const Edit = props => {
       },
       valid: false,
       touched: false,
-    }
+    },
+    image: {
+      value: {},
+      validation: {
+        required: false
+      },
+      valid: false,
+      touched: false,
+    },
   })
 
   const setFormIsValid = useState(false)[1];
@@ -45,13 +53,17 @@ const Edit = props => {
     setFormIsValid(validOut);
   }
 
+  const fileSelectedHandler = event => {
+    setFormValue({...formValue, image: {...formValue.images, value: event.target.files[0]}})
+  }
+
   const handleSubmit = event => {
     if (userInfo.user.vendor) {
-      axios.patch(`/categories/${slug}`, {
-        category: {
-          name: formValue.name.value
-        },
-      })
+      const formData = new FormData();
+      formData.append('name', formValue.name.value);
+      formData.append('image', formValue.image.value);
+
+      axios.patch(`/categories/${slug}`, formData)
       .then(response => {
         console.log("Created!", response);
         props.history.push(`/users/${userInfo.user.id}`)
@@ -77,6 +89,10 @@ const Edit = props => {
             placeholder="New Category Name"
             onChange={(event) => handleChange(event)}
             required />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(event) => fileSelectedHandler(event)} />
           <button type="submit">Update</button>
         </form>
       </div>

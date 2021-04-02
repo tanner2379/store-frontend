@@ -5,6 +5,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import configureSessionsStore from './hooks-store/sessions-store'
+
+import './assets/fonts/Rye-Regular.ttf';
+
 require('dotenv').config()
 
 configureSessionsStore();

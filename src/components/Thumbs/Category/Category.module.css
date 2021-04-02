@@ -1,0 +1,24 @@
+.Category {
+  display: inline-block;
+  margin-left: 50px;
+  border: none;
+  border-radius: 2px;
+  padding: 20px;
+  text-decoration: none;
+  color: #423830;
+  background: rgb(108,92,79);
+  background: linear-gradient(30deg, rgba(108,92,79,1) 0%, rgba(160,130,84,1) 46%, rgba(198,189,177,1) 100%); 
+  padding: 0.1em;
+}
+
+.Category img {
+  width: 300px;
+  height: 150px;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: "Rye";
+}

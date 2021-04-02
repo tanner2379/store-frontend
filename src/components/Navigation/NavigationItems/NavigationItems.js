@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import axios from '../../../axios-orders';
 
 import { UserContext } from '../../../contexts/UserContext';
 
 import NavigationItem from './NavigationItem/NavigationItem';
+import SearchBar from '../../Forms/SearchBar/SearchBar';
 
 import classes from './NavigationItems.module.css';
 
@@ -40,24 +42,30 @@ const NavigationItems = props => {
   }
 
   return (
-    <ul className={classes.NavigationItems} >
-      <NavigationItem link={'/'} exact>
-        Home
-      </NavigationItem>
-      <NavigationItem link={'/products'}>
-        Products
-      </NavigationItem>
-      <NavigationItem link={'/categories'}>
-        Categories
-      </NavigationItem>
-      {profileLink}
-      {userInfo.loggedIn === 'LOGGED_IN'
-      ? <div className={classes.Logout} onClick={handleLogout}>Log Out</div>
-      : null}
-      <NavigationItem link={'/cart'}>
-        Cart
-      </NavigationItem>
-    </ul>
+    <div className={classes.NavigationWrapper}>
+      <NavLink to="/" className={classes.HomeIcon}>
+        K
+      </NavLink>
+      <ul className={classes.NavigationItems} >
+        <NavigationItem link={'/'} exact>
+          Home
+        </NavigationItem>
+        <NavigationItem link={'/products'}>
+          Products
+        </NavigationItem>
+        <NavigationItem link={'/categories'}>
+          Categories
+        </NavigationItem>
+        {profileLink}
+        {userInfo.loggedIn === 'LOGGED_IN'
+        ? <div className={classes.Logout} onClick={handleLogout}>Log Out</div>
+        : null}
+        <NavigationItem link={'/cart'}>
+          Cart
+        </NavigationItem>
+        <SearchBar className={classes.Search} history={props.history} />
+      </ul>
+    </div>
   );
 };
 

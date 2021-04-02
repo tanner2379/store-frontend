@@ -5,6 +5,7 @@ import axios from './axios-orders';
 import { UserContext } from './contexts/UserContext';
 import { CartItemContext } from './contexts/CartItemContext';
 import { PaymentIntentContext } from './contexts/PaymentIntentContext';
+import { SearchResultContext } from './contexts/SearchResultContext';
 
 import Layout from './hoc/Layouts/Layout';
 import TransitionElement from './components/TransitionElement/TransitionElement';
@@ -30,10 +31,11 @@ import Cart from './containers/Cart/Cart';
 import Checkout from './containers/Checkout/Checkout';
 import Confirm from './containers/Checkout/Confirm';
 
-
 import Dashboard from './containers/Dashboard/Dashboard'
 
 import Invoices from './containers/Invoices/Invoices';
+
+import SearchResults from './containers/SearchResults/SearchResults';
 
 const App = props => {
   const [userInfo, setUserInfo] = useState({loggedIn: 'NOT_LOGGED_IN', user: {}});
@@ -57,55 +59,59 @@ const App = props => {
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
       <CartItemContext.Provider value={[cartItems, setCartItems]}>
-        <Layout {...props}>
-          <Suspense fallback={<p>Loading...</p>}>
-            <Route render={({location})  => (
-              <TransitionElement multiple assignedKey={location.key} animation='fade' timeout={1000}>
-                <Switch location={location}>
-                  <Route path="/" exact render={props => (
-                    <Home {...props} />)} />
-                  <Route path="/products" exact render={props => (
-                    <Products {...props} />)} />
-                  <Route path="/products/new" exact render={props => (
-                    <NewProduct {...props} />)} />
-                  <Route path="/products/:slug/edit" render={props => (
-                    <EditProduct {...props} />)} />
-                  <Route path="/products/:slug" render={props => (
-                    <Product {...props} />)} />
-                  <Route path="/categories" exact render={props => (
-                    <Categories {...props} />)} />
-                  <Route path="/categories/new" exact render={props => (
-                    <NewCategory {...props} />)} />
-                  <Route path="/categories/:slug/edit" render={props => (
-                    <EditCategory {...props} />)} />
-                  <Route path="/categories/:slug" render={props => (
-                    <Category {...props} />)} />
-                  <Route path="/sign_in" render={props => (
-                    <Registration {...props} />)} />
-                  <Route path="/users/:slug/edit" render={props => (
-                    <EditProfile {...props} />)} />
-                  <Route path="/users/:slug" render={props => (
-                    <Profile {...props} />)} />
-                  <Route path="/dashboard" render={props => (
-                    <Dashboard {...props} />)} />
-                  <Route path="/invoices" render={props => (
-                    <Invoices {...props} />)} /> 
-                  <Route path="/cart" render={props => (
-                    <Cart {...props} />)} />
+        <SearchResultContext.Provider value={[paymentIntent, setPaymentIntent]}>
+          <Layout {...props}>
+            <Suspense fallback={<p>Loading...</p>}>
+              <Route render={({location})  => (
+                <TransitionElement multiple assignedKey={location.key} animation='fade' timeout={1000}>
+                  <Switch location={location}>
+                    <Route path="/" exact render={props => (
+                      <Home {...props} />)} />
+                    <Route path="/products" exact render={props => (
+                      <Products {...props} />)} />
+                    <Route path="/products/new" exact render={props => (
+                      <NewProduct {...props} />)} />
+                    <Route path="/products/:slug/edit" render={props => (
+                      <EditProduct {...props} />)} />
+                    <Route path="/products/:slug" render={props => (
+                      <Product {...props} />)} />
+                    <Route path="/categories" exact render={props => (
+                      <Categories {...props} />)} />
+                    <Route path="/categories/new" exact render={props => (
+                      <NewCategory {...props} />)} />
+                    <Route path="/categories/:slug/edit" render={props => (
+                      <EditCategory {...props} />)} />
+                    <Route path="/categories/:slug" render={props => (
+                      <Category {...props} />)} />
+                    <Route path="/sign_in" render={props => (
+                      <Registration {...props} />)} />
+                    <Route path="/users/:slug/edit" render={props => (
+                      <EditProfile {...props} />)} />
+                    <Route path="/users/:slug" render={props => (
+                      <Profile {...props} />)} />
+                    <Route path="/dashboard" render={props => (
+                      <Dashboard {...props} />)} />
+                    <Route path="/invoices" render={props => (
+                      <Invoices {...props} />)} /> 
+                    <Route path="/cart" render={props => (
+                      <Cart {...props} />)} />
+                    <Route path="/search_results" render={props => (
+                      <SearchResults {...props} />)} />
 
-                  <PaymentIntentContext.Provider value={[paymentIntent, setPaymentIntent]}>
-                    <Route path="/checkout" render={props => (
-                      <Checkout {...props} />)} />
-                    <Route path="/confirm" render={props => (
-                      <Confirm {...props} />)} />
-                  </PaymentIntentContext.Provider>
+                    <PaymentIntentContext.Provider value={[paymentIntent, setPaymentIntent]}>
+                      <Route path="/checkout" render={props => (
+                        <Checkout {...props} />)} />
+                      <Route path="/confirm" render={props => (
+                        <Confirm {...props} />)} />
+                    </PaymentIntentContext.Provider>
 
-                  <Redirect to="/" />
-                </Switch>
-              </TransitionElement>
-            )} />
-          </Suspense>
-        </Layout>
+                    <Redirect to="/" />
+                  </Switch>
+                </TransitionElement>
+              )} />
+            </Suspense>
+          </Layout>
+        </SearchResultContext.Provider>
       </CartItemContext.Provider>
     </UserContext.Provider>
   )
