@@ -1,0 +1,119 @@
+.Product {
+  font-family: Rye;
+  display: flex;
+  background-image: url('../../../assets/images/wood.png');
+  width: 93vw;
+  height: 70vh;
+  margin-left: 1.5%;
+  padding: 2%;
+  border-radius: 2px;
+}
+
+.productImages {
+}
+
+.featuredImage img {
+  width: 30rem;
+  height: 30rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.thumbImage {
+  width: 6rem;
+  height: 6rem;
+  margin-right: 1rem;
+  border-radius: 2px;
+  -webkit-transition: width 0.25s, height 0.25s ease-in-out;
+  -moz-transition: width 0.25s, height 0.25s ease-in-out;
+  -ms-transition: width 0.25s, height 0.25s ease-in-out;
+  -o-transition: width 0.25s, height 0.25s ease-in-out;
+  transition: width 0.25s, height 0.25s ease-in-out;
+}
+
+.thumbImage:hover {
+  cursor: pointer;
+  width: 6.3rem;
+  height: 6.3rem;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  margin-left: 1.25%;
+  padding: 2%;
+  background-image: url('../../../assets/images/parchment.jpg');
+  background-size: 100% 100%;
+  border-radius: 2px;
+}
+
+.Title {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+}
+
+.quantityControls {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+}
+
+.controlButtons {
+  display: flex;
+  justify-content: center;
+  height: 15%;
+}
+
+.controlLabel {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.subtractWrapper{
+  margin-right: 5%;
+  cursor: pointer;
+  width: 6.5vw;
+  height: 6.5vw;
+}
+
+.quantity {
+  margin-top: 0;
+  font-size: 5vw;
+  color: rgba(51, 43, 37, 0.9)
+}
+
+.addWrapper {
+  margin-left: 5%;
+  cursor: pointer;
+  width: 6.5vw;
+  height: 6.5vw;
+}
+
+
+.button {
+  background-color: transparent;
+  border-color: transparent;
+  font-family: Rye;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.button:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 1);
+}
+
+.cart {
+  width: 9.25em;
+  font-size: 2vw;
+  margin-top: 1em;
+}

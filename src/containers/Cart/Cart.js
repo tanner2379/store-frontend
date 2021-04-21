@@ -4,13 +4,13 @@ import axios from '../../axios-orders';
 
 import { currency } from '../../shared/utility';
 
-import { CartItemContext } from '../../contexts/CartItemContext';
-
 import CartItem from './CartItem/CartItem';
 import Aux from '../../hoc/Aux/Aux';
 
+import classes from './Cart.module.css';
+
 const Cart = props => {
-  const [cartItems, setCartItems] = useContext(CartItemContext);
+  const [cartItems, setCartItems] = useState([]);
   const [inputTimer, setInputTimer] = useState(null);
   const [quantityArray, setQuantityArray] = useState([]);
   
@@ -28,23 +28,26 @@ const Cart = props => {
       })
   }, [setQuantityArray])
 
-  const handleUpdateQuantity = (cartItemId, quantity) =>{
-    axios.patch(`/cart_items/${cartItemId}`,
-      {
-        quantity: quantity
-      }
-    )
-      .then(response => {
-        if (response.data.status === 200) {
-          console.log("Quantity updated!", response.data)
-          props.history.push('/cart');
-        } else {
-          console.log("Quantity not updated", response.data)
+  const handleUpdateQuantity = (cartItemId, index) =>{
+
+    if(quantityArray[index] !== cartItems[index].quantity) {
+      axios.patch(`/cart_items/${cartItemId}`,
+        {
+          quantity: quantityArray[index]
         }
-      })
-      .catch(error => {
-        console.log("CartItem update error", error)
-      })
+      )
+        .then(response => {
+          if (response.data.status === 200) {
+            console.log("Quantity updated!", response.data)
+            props.history.push('/cart');
+          } else {
+            console.log("Quantity not updated", response.data)
+          }
+        })
+        .catch(error => {
+          console.log("CartItem update error", error)
+        })
+    }
   }
 
   const handleQuantityAdd = (cartItemId, inStock, index) => {
@@ -56,11 +59,12 @@ const Cart = props => {
     }
 
     if (inputTimer) {
+      clearTimeout(inputTimer);
       setInputTimer(null);
     }
     setInputTimer(
       setTimeout(function () {
-        handleUpdateQuantity(cartItemId, quantityArray[index]);
+        handleUpdateQuantity(cartItemId, index);
       }, 5000)
     )
   }
@@ -74,11 +78,12 @@ const Cart = props => {
     }
 
     if (inputTimer) {
+      clearTimeout(inputTimer);
       setInputTimer(null);
     }
     setInputTimer(
       setTimeout(function () {
-        handleUpdateQuantity(cartItemId, quantityArray[index]);
+        handleUpdateQuantity(cartItemId, index);
       }, 5000)
     )
   }
@@ -109,6 +114,11 @@ const Cart = props => {
                 : null
               }
               quantity={quantityArray[cartItems.indexOf(cartItem)]}
+              totalPrice={
+                cartItem.product_price
+                ? currency(cartItem.product_price * quantityArray[cartItems.indexOf(cartItem)])
+                : null
+              }
               increaseQuantity={() => handleQuantityAdd(cartItem.id, cartItem.product_in_stock, cartItems.indexOf(cartItem))}
               decreaseQuantity={() => handleQuantitySubtract(cartItem.id, cartItems.indexOf(cartItem))}
               handleDelete={() => handleDelete(cartItem.id)} />
@@ -120,15 +130,33 @@ const Cart = props => {
   }
 
   let checkoutLink = null;
+  let totalPrice = 0;
   if (cartItems) {
-    checkoutLink = <Link to={'/checkout'}>Checkout</Link>
+    checkoutLink = <Link to={'/checkout'}>Check Out</Link>
+    for (let i = 0; i < cartItems.length; i++) {
+      totalPrice += (cartItems[i].product_price * cartItems[i].quantity);
+    }
   }
 
   return (
-    <div>
-      Your Cart
-      {cartList}
-      {checkoutLink}
+    <div className={classes.Cart}>
+      <p className={classes.Title}>Your Cart</p>
+      {/* <div className={classes.columnTitles}>
+        <p className={classes.itemName}>Item Name</p>
+        <p className={classes.itemCost}>Item Cost</p>
+        <p className={classes.itemQuantity}>Item Quantity</p>
+        <p className={classes.lineCost}>Line Cost</p>
+      </div> */}
+      <div className={classes.cartList}>
+        {cartList}
+      </div>
+      {cartItems
+        ? <p className={classes.total}>Total: {currency(totalPrice)}</p>
+        : null
+      }
+      <div className={classes.checkoutLink}>
+        {checkoutLink}
+      </div>
     </div>
   )
 }

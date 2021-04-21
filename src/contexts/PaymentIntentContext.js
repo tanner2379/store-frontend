@@ -1,3 +1,3 @@
 import { createContext } from 'react';
 
-export const PaymentIntentContext = createContext('');
+export const PaymentIntentContext = createContext({});

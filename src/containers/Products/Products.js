@@ -19,28 +19,30 @@ const Products = props => {
   }, [])
 
   return (
-    <div>
-      <h1 className={classes.Title}>Our Products</h1>
-      {products.map(product =>{
-        if (product.images[0]) {
-          return <ProductThumb 
-            key={product.id}
-            name={product.name}
-            slug={product.slug}
-            description={product.description}
-            price={product.price}
-            imageUrl={'http://localhost:5000/' + product.images[0].url}
-            />
-        } 
-        else {
-          return <ProductThumb
-            key={product.id}
-            name={product.name}
-            slug={product.slug}
-            description={product.description}
-            price={product.price} />
-        }
-      })}
+    <div className={classes.Products}>
+      <p className={classes.Title}>Our Products</p>
+      <div className={classes.productWrapper}>
+        {products.map(product =>{
+          if (product.images[0]) {
+            return <ProductThumb 
+              key={product.id}
+              name={product.name}
+              slug={product.slug}
+              description={product.description}
+              price={product.price}
+              imageUrl={'http://localhost:5000/' + product.images[0].url}
+              />
+          } 
+          else {
+            return <ProductThumb
+              key={product.id}
+              name={product.name}
+              slug={product.slug}
+              description={product.description}
+              price={product.price} />
+          }
+        })}
+      </div>
     </div>
   )
 }

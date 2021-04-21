@@ -1,0 +1,21 @@
+.Input {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+  border-radius: 5px;
+  font-family: Rye;
+  background-color: transparent;
+  height: 1.9rem;
+  border-radius: 2px;
+  border-color: transparent;
+  font-family: Rye;
+  border-bottom: 2px solid #2e2e2d;
+  appearance: none;
+  cursor: pointer;
+}
+
+.Input::placeholder {
+  font-family: Rye;
+  font-size: 1rem;
+  color: black;
+  font-weight: 700;
+}

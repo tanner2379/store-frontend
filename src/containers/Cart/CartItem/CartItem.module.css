@@ -1,21 +1,55 @@
 .CartItem {
-  display: grid;
-  width: 80%;
-  margin: 20px;
+  display: flex;
+  margin-bottom: 1.25em;
+  justify-self: center;
 }
 
 .CartItem img {
-  grid-row-start: 1;
-  grid-row-end: 1;
+  margin-right: 1.25em;
 }
 
-.CartItem p {
-  grid-row-start: 1;
-  grid-row-end: 1;
+.productName {
+  margin-right: 1.25em;
 }
 
-.CartItem button {
-  grid-row-start: 1;
-  grid-row-end: 1;
+.productPrice {
+  margin-right: 1.25em;
+}
+
+.subtractWrapper {
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  margin-top: 1.5%;
+  margin-right: 2%;
+}
+
+.productQuantity {
+  justify-self: center;
+}
+
+.addWrapper {
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  margin-top: 1.5%;
+  margin-left: 2%;
+  margin-right: 1.25em;
+}
+
+.totalPrice {
+  margin-right: 1.25em;
+}
+
+.removeButton {
+  border: 5px solid rgba(66, 56, 48, 0.7);
+  border-radius: 5px;
+  color: rgba(66, 56, 48, 0.7);
+  justify-content: center;
+}
+
+.removeButton:hover{
+  border: 5px solid rgba(66, 56, 48, 1);
+  color: rgba(66, 56, 48, 1);
   cursor: pointer;
 }

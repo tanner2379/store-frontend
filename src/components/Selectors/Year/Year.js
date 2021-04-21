@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import classes from './Year.module.css';
+
 const YearSelector = props => {
 
   const [yearArray, setYearArray] = useState([]);
@@ -22,7 +24,7 @@ const YearSelector = props => {
 
 
   return (
-    <select name="cardExpYear" id="cardExpYear" onChange={props.onChange} required={props.required} >
+    <select className={classes.Input} name={props.name} id={props.name} onChange={props.onChange} required={props.required} >
       <option>{props.placeholder}</option>
       {yearOptions}
     </select>

@@ -6,6 +6,9 @@ import { UserContext } from '../../../contexts/UserContext';
 import { CartItemContext } from '../../../contexts/CartItemContext';
 
 import Aux from '../../../hoc/Aux/Aux';
+import Lightbox from '../../../components/UI/Lightbox/Lightbox';
+import AddArrow from '../../../components/svg/AddArrow/AddArrow';
+import SubtractArrow from '../../../components/svg/SubtractArrow/SubtractArrow';
 
 import classes from './Product.module.css';
 
@@ -14,8 +17,9 @@ const Product = props => {
   const userInfo = useContext(UserContext)[0];
   const [cartItems, setCartItems] = useContext(CartItemContext);
   const [product, setProduct] = useState({});
-
+  const [featuredImageIndex, setFeaturedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [lightboxDisplay, setLightboxDisplay] = useState(false);
 
   useEffect(() => {
     axios.get(`/products/${slug}`, {
@@ -95,50 +99,86 @@ const Product = props => {
   }
 
   const handleQuantitySubtract = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   }
 
+  const handleFeaturedImageIndexChange = index => {
+    setFeaturedImageIndex(index);
+  }
+
+  const toggleLightbox = () => {
+    setLightboxDisplay(!lightboxDisplay);
+  };
+
+  let lightbox = null;
+  if (product.images && lightboxDisplay) {
+    lightbox = (
+      <Lightbox
+        images={product.images}
+        initialIndex={featuredImageIndex}
+        toggleLightbox={toggleLightbox}
+        show={lightboxDisplay} />
+    )
+  }
+
   return (
-    <div className={classes.Product}>
-      {userInfo.user.vendor
-        ? <Aux>
-            <Link to={`/products/${slug}/edit`}>Edit Product</Link>
-            <button onClick={(event) => handleDelete(event)}>Delete Product</button>
-          </Aux>
-        : null
-      }
-      <h1 className={classes.Title}>{product.name}</h1>
-        {
-          quantity > 0
-          ?  <Aux>
-                <button onClick={handleQuantitySubtract} >-</button>
-                <p>{quantity}</p>
-                <button onClick={handleQuantityAdd} >+</button>
-                <button onClick={handleAddToCart} >Add to Cart</button>
-              </Aux>  
-          : <p>Out of Stock</p>
-        }
-      {/* {products.map(product =>{
-        if (product.images[0]) {
-          return <ProductThumb 
-            key={product.id}
-            name={product.name}
-            description={product.description}
-            price={product.price}
-            imageUrl={'http://localhost:5000/' + product.images[0].url}
-            />
-        } 
-        else {
-          return <ProductThumb
-            key={product.id}
-            name={product.name}
-            description={product.description}
-            price={product.price} />
-        }
-      })} */}
-    </div>
+    <Aux>
+      {lightbox}
+      <div className={classes.Product}>
+        <div className={classes.productImages}>
+          {product.images
+            ? <div className={classes.featuredImage}>
+                <img src={'http://localhost:5000/' + product.images[featuredImageIndex].url} alt="First Image" onClick={toggleLightbox}/>
+              </div>
+            : <div className={classes.featuredImage}>
+              </div>
+          }
+          
+          <div className={classes.imageThumbs}>
+            { product.images
+              ? product.images.map(image => {
+                  if(product.images.indexOf(image) !== featuredImageIndex){
+                    return <img src={'http://localhost:5000/' + image.url} alt="imageThumb" className={classes.thumbImage} onClick={() => handleFeaturedImageIndexChange(product.images.indexOf(image))}/>
+                  }
+                })
+              : null
+            }
+          </div>
+        </div>
+        <div className={classes.productInfo}>
+          {userInfo.user.vendor
+            ? <Aux>
+                <Link to={`/products/${slug}/edit`}>Edit Product</Link>
+                <button onClick={(event) => handleDelete(event)}>Delete Product</button>
+              </Aux>
+            : null
+          }
+          <h1 className={classes.Title}>{product.name}</h1>
+          <p className={classes.description}>{product.description}</p>
+        </div>
+        <div className={classes.quantityControls}>
+            {
+              product.in_stock > 0
+              ?  <Aux>
+                    <p className={classes.controlLabel}>Quantity</p>
+                    <div className={classes.controlButtons} >
+                      <div className={classes.subtractWrapper}>
+                        <SubtractArrow onclick={handleQuantitySubtract} />
+                      </div>
+                      <p className={classes.quantity} >{quantity}</p>
+                      <div className={classes.addWrapper}>
+                        <AddArrow onclick={handleQuantityAdd} />
+                      </div>
+                    </div>
+                    <button onClick={handleAddToCart} className={[classes.button, classes.cart].join(' ')} >Add to Cart</button>
+                  </Aux>  
+              : <p>Out of Stock</p>
+            }
+          </div>
+      </div>
+    </Aux>
   )
 }
 

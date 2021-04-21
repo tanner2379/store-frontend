@@ -1,0 +1,35 @@
+.Cart {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  font-family: Rye;
+  background-image: url("../../assets/images/parchment.jpg");
+  background-size: 97vw 80vh;
+  background-repeat: no-repeat;
+  padding: 0.1em;
+  min-height: 80vh;
+  margin-left: 1.5%;
+  border-radius: 2px;
+}
+
+.Title {
+  font-size: 3em;
+  color: #201b17;
+}
+
+.cartList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkoutLink a {
+  text-decoration: none;
+  font-size: 2em;
+  color: rgba(32, 27, 23, 0.7);
+}
+
+.checkoutLink a:hover {
+  color: rgba(32, 27, 23, 1);
+}

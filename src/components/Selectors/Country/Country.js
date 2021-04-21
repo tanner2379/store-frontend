@@ -1,8 +1,11 @@
 import React from 'react';
 
+import classes from './Country.module.css';
+
 const CountrySelector = props => {
   return (
-    <select name="country" id="country" value='US' placeholder={props.placeholder} onChange={props.onChange} required={props.required}>
+    <select className={classes.Input} name={props.name} id={props.name} placeholder={props.placeholder} onChange={props.onChange} required={props.required}>
+      <option value="US">United States</option>
       <option value="AF">Afghanistan</option>
       <option value="AX">Åland Islands</option>
       <option value="AL">Albania</option>
@@ -238,7 +241,6 @@ const CountrySelector = props => {
       <option value="UA">Ukraine</option>
       <option value="AE">United Arab Emirates</option>
       <option value="GB">United Kingdom</option>
-      <option value="US">United States</option>
       <option value="UM">United States Minor Outlying Islands</option>
       <option value="UY">Uruguay</option>
       <option value="UZ">Uzbekistan</option>

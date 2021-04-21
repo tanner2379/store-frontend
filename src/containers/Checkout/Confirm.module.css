@@ -1,0 +1,31 @@
+.Confirm {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-family: Rye;
+}
+
+.contentWrapper {
+  width: 40vw;
+  background-image: url('../../assets/images/parchment.jpg');
+  box-shadow: 4px 2px 5px #444;
+  font-size: 1.8rem;
+  padding: 1rem 2rem 2rem 2rem;
+}
+
+.Title {
+  font-size: 2rem;
+}
+
+.contentWrapper button {
+  margin-top: 1.5em;
+  margin-bottom: 1.25em;
+  background-color: rgba(160, 130, 84, 0.7);
+  border: 3px solid #423830;
+  border-radius: 2px;
+  margin-right: 0.6em;
+  font-family: Rye;
+  font-weight: 700;
+  font-size: 2em;
+  color: rgba(0, 0, 0, 0.7);
+}

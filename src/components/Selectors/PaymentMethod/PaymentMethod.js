@@ -1,5 +1,7 @@
 import React from 'react';
 
+import classes from './PaymentMethod.module.css';
+
 const PaymentMethodSelector = props => {
   let paymentOptions = null;
 
@@ -10,7 +12,7 @@ const PaymentMethodSelector = props => {
   }
 
   return (
-    <select name="paymentMethod" id="paymentMethod" placeholder={props.placeholder} onChange={props.onChange} required={props.required} >
+    <select className={classes.Input} name="paymentMethod" id="paymentMethod" placeholder={props.placeholder} onChange={props.onChange} required={props.required} >
       <option>Select Saved Payment Method</option>
       {paymentOptions}
     </select>

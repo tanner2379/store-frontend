@@ -1,9 +1,10 @@
-form {
+.searchForm {
   display: flex;
   align-items: center;
+  margin-top: 0.5rem;
 }
 
-input {
+.searchInput {
   background-color: #A08254;
   height: 1.9rem;
   border-radius: 2px;
@@ -13,12 +14,18 @@ input {
   font-family: "Rye;"
 }
 
-button {
+.searchInput::placeholder {
+  font-family: Rye;
+}
+
+.searchButton {
   background-color: #A08254;
   height: 1.9rem;
   border-radius: 2px;
   border-style: solid;
   border-color: transparent;
   margin-right: 0.6em;
-  font-family: "Rye;"
+  font-family: Rye;
+  font-weight: 300;
+  cursor: pointer;
 }

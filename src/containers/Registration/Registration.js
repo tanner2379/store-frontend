@@ -95,46 +95,51 @@ const Registration = props => {
   return (
     <div className={classes.Registration}>
       <div className = {classes.formWrapper} >
-        <div className={classes.logForm} >
+        <div className={classes.logFormWrapper} >
             <h2>Log In</h2>
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleLogin} className={classes.logForm}>
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
                 onChange={(event) => handleChange(event)}
-                required />
+                required 
+                className={classes.regInput} />
               <input
                 type="password"
                 name="password"
                 placeholder="Password"
                 onChange={(event) => handleChange(event)}
-                required />
-              <button type="submit" className={classes.logButton}>Log In</button>
+                required 
+                className={classes.regInput} />
+              <button type="submit" className={[classes.authButton, classes.logButton].join(' ')}>Log In</button>
             </form>
           </div>
-        <div className={classes.regForm} >
+        <div className={classes.regFormWrapper} >
           <h2>Sign Up</h2>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={handleRegister} className={classes.authForm}>
             <input
               type="email"
               name="email"
               placeholder="Email"
               onChange={(event) => handleChange(event)}
-              required />
+              required 
+              className={classes.regInput} />
             <input
               type="password"
               name="password"
               placeholder="Password"
               onChange={(event) => handleChange(event)}
-              required />
+              required
+              className={classes.regInput} />
             <input
               type="password"
               name="password_confirmation"
               placeholder="Password Confirmation"
               onChange={(event) => handleChange(event)}
-              required />
-            <button type="submit">Register</button>
+              required
+              className={classes.regInput} />
+            <button type="submit" className={[classes.authButton, classes.regButton].join(' ')}>Register</button>
           </form>
         </div>
       </div>

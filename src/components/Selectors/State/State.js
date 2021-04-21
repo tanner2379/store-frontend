@@ -1,8 +1,10 @@
 import React from 'react';
 
+import classes from './State.module.css';
+
 const StateSelector = props => {
   return (
-    <select name="state" id="state" onChange={props.onChange} required={props.required} >
+    <select className={classes.Input} name={props.name} id={props.name} onChange={props.onChange} required={props.required} >
       <option>{props.placeholder}</option>
       <option value="AL">Alabama</option>
       <option value="AK">Alaska</option>

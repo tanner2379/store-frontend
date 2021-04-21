@@ -64,14 +64,15 @@ const SearchBar = props => {
 
   return (
     <div className={classes.SearchBar}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={classes.searchForm}>
         <input
           type="text"
           name="productName"
           placeholder="Search Products..."
           onChange={(event) => handleChange(event)}
-          required />
-        <button type="submit">Search</button>
+          required
+          className={classes.searchInput} />
+        <button type="submit" className={classes.searchButton}>Search</button>
       </form>
       {notFoundModal}
     </div>

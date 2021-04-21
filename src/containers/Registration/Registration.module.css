@@ -1,25 +1,104 @@
-.formWrapper {
-  text-align: center;
+.Registration {
+  font-family: Rye;
+  color: #201b17;
+  margin-top: 0;
+  padding: 0 4rem 2rem 2rem;
+  background-image: url('../../assets/images/wood.png');
+  width: 92vw;
+  margin-left: 1.5%;
+  border-radius: 5px;
+  box-shadow: 10px 5px 10px #555;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
 }
 
-.regForm {
-  display: inline-block;
-  padding-left: 50px;
-  border-left: 1px solid #ccc;
+.formWrapper {
+  text-align: center;
+  display: grid;
+  grid-column-gap: 10rem;
+  justify-content: center;
+  padding-top: 5rem;
+}
+
+.logFormWrapper {
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  vertical-align: top;
+  background-image: url('../../assets/images/parchment.jpg');
+  width: 25rem;
+  height: 30rem;
+  box-shadow: 4px 2px 5px #444;
+  font-size: 1.8rem;
+}
+
+.regFormWrapper {
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  width: 25rem;
+  background-image: url('../../assets/images/parchment.jpg');
+  box-shadow: 4px 2px 5px #444;
+  font-size: 1.8rem;
+}
+
+.authForm {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logForm {
-  display: inline-block;
-  vertical-align: top;
-  padding-right: 50px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  height: 100%;
 }
 
-input {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.regInput {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+  border-radius: 5px;
+  font-family: Rye;
+  background-color: transparent;
+  height: 1.9rem;
+  border-radius: 2px;
+  border-color: transparent;
+  font-family: Rye;
+  border-bottom: 2px solid #2e2e2d;
+}
+
+.regInput::placeholder {
+  font-family: Rye;
+  font-size: 1rem;
+  color: black;
+  font-weight: 700;
+}
+
+.authButton {
+  border: 2px solid #2e2e2d;
+  background-color: #A08254;
+  height: 1.9rem;
+  width: 10rem;
+  box-shadow: 2px 4px 5px #444;
+  font-family: Rye;
+  color: #201b17;
 }
 
 .logButton {
-  margin-top: 44px;
+  margin-top: 6em;
+}
+
+.regButton {
+  margin-top: 3em;
+}
+
+.authButton:hover {
+  cursor: pointer;
 }

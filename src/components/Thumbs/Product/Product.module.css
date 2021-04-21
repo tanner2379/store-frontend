@@ -1,20 +1,44 @@
 .Product {
-  display: inline-block;
-  margin-left: 50px;
-  border: 1px solid #ccc;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-left: 3rem;
+  border: 2px solid #52463d;
   border-radius: 5px;
-  padding: 20px;
+  padding: 1.25rem;
   text-decoration: none;
   color: black;
+  background-image: url('../../../assets/images/parchment.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #A08254;
+  width: 30ch;
+  box-shadow: 4px 2px 5px #444;
 }
 
 .Product img {
-  width: 200px;
-  height: 200px;
-  border-radius: 5px;
+  width: 29ch;
+  height: 25ch;
+  margin-top: 0.5rem;
 }
 
 .name {
-  font-size: 24px;
+  font-size: 1.5em;
   font-weight: 500;
+  margin: 0.75rem 0 0 0;
+  font-family: 'Rye';
+  font-weight: 600;
+}
+
+.description {
+  margin: 0.5rem 0 0 0;
+  font-family: 'Rye';
+}
+
+.price {
+  margin: 0.75rem 0 0.5rem 0;
+  font-size: 2em;
+  font-weight: 500;
+  font-family: 'Rye';
 }

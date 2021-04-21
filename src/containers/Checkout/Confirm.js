@@ -2,18 +2,15 @@ import React, { useState, useContext } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from '../../axios-orders';
 
-import { CartItemContext } from '../../contexts/CartItemContext';
-import { PaymentIntentContext } from '../../contexts/PaymentIntentContext';
+import Aux from '../../hoc/Aux/Aux';
+import classes from './Confirm.module.css';
 
 const Confirm = props => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const paymentIntent = useContext(PaymentIntentContext)[0];
-  const cartItems = useContext(CartItemContext)[0];
-  const itemIds = cartItems.map(cartItem => {
-    return cartItem.id
-  });
+  const paymentIntent = JSON.parse(localStorage.getItem("paymentInfo"));
+  const itemIds = paymentIntent.cartItems.map(cartItem => cartItem.id);
 
   const [isProcessing, setProcessingTo] = useState(false);
 
@@ -35,6 +32,7 @@ const Confirm = props => {
       })
         .then(response => {
           if (response.status === 200){
+            localStorage.removeItem("paymentInfo");
             setProcessingTo(false);
             props.history.push('/');
           } else {
@@ -51,8 +49,30 @@ const Confirm = props => {
     }
   }
 
+  let confirmFields = null
+  if (paymentIntent && paymentIntent.shipping) {
+    confirmFields = (
+      <Aux>
+        <p>Name: {paymentIntent.name}</p>
+        <p>Card Ending In: {paymentIntent.lastFour}</p>
+        <p>Address Line 1: {paymentIntent.shipping.line1}</p>
+        <p>Address Line 2: {paymentIntent.shipping.line2}</p>
+        <p>City: {paymentIntent.shipping.city}</p>
+        <p>State: {paymentIntent.shipping.state}</p>
+        <p>Country: {paymentIntent.shipping.country}</p>
+        <p>Postal Code: {paymentIntent.shipping.postal_code}</p>
+        <button disabled={isProcessing || !stripe} onClick={(event) => handleSubmit(event)}>Confirm</button>
+      </Aux>
+    )
+  }
+
   return (
-    <button disabled={isProcessing || !stripe} onClick={(event) => handleSubmit(event)}>Confirm</button>
+    <div className={classes.Confirm}>
+      <div className={classes.contentWrapper}>
+        <p className={classes.Title}>Confirm Payment Details</p>
+        {confirmFields}
+      </div>
+    </div>
   )
 }
 

@@ -1,3 +1,8 @@
 .Content {
-  margin-top: 100px;
+  padding-top: 6.5rem;
+  height: 75vh;
+}
+
+.Footer{
+  height: 10vh;
 }

@@ -33,7 +33,9 @@ const Layout = props => {
         </div>
       </Elements>
       
-      <Footer />
+      {/* <div className={classes.Footer}>
+        <Footer />
+      </div> */}
     </Aux>
   );
 };

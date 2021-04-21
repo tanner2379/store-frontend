@@ -1,8 +1,10 @@
 import React from 'react';
 
+import classes from './Month.module.css'
+
 const MonthSelector = props => {
   return (
-    <select name="cardExpMonth" id="cardExpMonth" onChange={props.onChange} required={props.required} >
+    <select className={classes.Input} name={props.name} id={props.name} onChange={props.onChange} required={props.required} >
       <option>{props.placeholder}</option>
       <option value="1">01 - January</option>
       <option value="2">02 - February</option>

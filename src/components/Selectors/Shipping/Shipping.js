@@ -1,5 +1,7 @@
 import React from 'react';
 
+import classes from './Shipping.module.css';
+
 const ShippingSelector = props => {
 
   let shippingOptions = null;
@@ -11,7 +13,7 @@ const ShippingSelector = props => {
   }
 
   return (
-    <select name="shippingDetails" id="shippingDetails" placeholder={props.placeholder} onChange={props.onChange} required={props.required} >
+    <select className={classes.Input} name="shippingDetails" id="shippingDetails" placeholder={props.placeholder} onChange={props.onChange} required={props.required} >
       <option>Select Saved Address</option>
       {shippingOptions}
     </select>

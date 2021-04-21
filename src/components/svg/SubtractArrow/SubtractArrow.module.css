@@ -1,0 +1,15 @@
+.svgWrapper {
+  width: inherit;
+  height: inherit;
+}
+.SubtractPath {
+  fill: none;
+  stroke: rgba(66, 56, 48, 0.6);
+  stroke-width: 25;
+  margin-top: 0;
+}
+
+.SubtractPath:hover {
+  stroke: rgba(66, 56, 48, 1);
+  cursor: pointer;
+}

@@ -6,14 +6,14 @@
   padding: 20px;
   text-decoration: none;
   color: #423830;
-  background: rgb(108,92,79);
-  background: linear-gradient(30deg, rgba(108,92,79,1) 0%, rgba(160,130,84,1) 46%, rgba(198,189,177,1) 100%); 
+  background-image: url('../../../assets/images/wood.png');
+  background-size: 20em 10em;
   padding: 0.1em;
 }
 
 .Category img {
-  width: 300px;
-  height: 150px;
+  width: 20em;
+  height: 10em;
 }
 
 .name {
@@ -21,4 +21,5 @@
   font-size: 1.5em;
   font-weight: 500;
   font-family: "Rye";
+  color: #201b17;
 }

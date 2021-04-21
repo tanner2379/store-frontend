@@ -12,7 +12,7 @@ const Product = props => {
         ? <img src={props.imageUrl} alt={props.name} />
         : null
       }
-      <p className={classes.name}>{`${props.name} image`}</p>
+      <p className={classes.name}>{props.name}</p>
       <p className={classes.description}>{props.description}</p>
       <p className={classes.price}>{currency(props.price)}</p>
     </Link>

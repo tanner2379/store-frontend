@@ -1,0 +1,33 @@
+.Categories {
+  margin-top: 0;
+  padding: 0 4rem 2rem 2rem;
+  background-image: url('../../assets/images/wood.png');
+  width: 92vw;
+  margin-left: 1.5%;
+  border-radius: 5px;
+  box-shadow: 10px 5px 10px #555;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+}
+
+.Categories a {
+  text-decoration: none;
+  font-family: Rye;
+  font-size: 2em;
+  color: #201b17;
+  width: 15ch;
+}
+
+.Categories a:hover {
+  text-decoration: underline;
+  color: #E9B76E;
+}
+
+.Title {
+  text-align: center;
+  text-transform: capitalize;
+  font-family: Rye;
+  color: #201b17;
+  font-size: 3rem;
+}
