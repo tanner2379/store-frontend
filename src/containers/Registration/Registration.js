@@ -3,13 +3,14 @@ import axios from '../../axios-orders';
 
 import { inputChangedHandler } from '../../shared/utility';
 import { UserContext } from '../../contexts/UserContext';
-
+import { FlashContext } from '../../contexts/FlashContext';
 
 import classes from './Registration.module.css';
 
 
 const Registration = props => {
   const [userInfo, setUserInfo] = useContext(UserContext);
+  const setFlash = useContext(FlashContext)[1];
 
   const [formValue, setFormValue] = useState({
     email: {
@@ -60,7 +61,8 @@ const Registration = props => {
         setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user})
         props.history.push('/');
       } else {
-        console.log("Registration Error")
+        console.log(response.data)
+        setFlash({ errors: response.data.errors, visible: true })
       }
     }).catch(error => {
       console.log("registration_error", error);
@@ -81,7 +83,7 @@ const Registration = props => {
         setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user});
         props.history.push('/');
       } else {
-        console.log("Registration Error")
+        setFlash({ errors: response.data.errors, visible: true })
       }
     }).catch(error => {
       console.log("login error", error);

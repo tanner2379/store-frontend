@@ -15,7 +15,7 @@ import classes from './Product.module.css';
 const Product = props => {
   const { slug } = useParams();
   const userInfo = useContext(UserContext)[0];
-  const [cartItems, setCartItems] = useContext(CartItemContext);
+  const [cartItems, setCartItems] = useState([]);
   const [product, setProduct] = useState({});
   const [featuredImageIndex, setFeaturedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -61,10 +61,7 @@ const Product = props => {
       })
       .then(response => {
         if (response.data.status === "created"){
-          console.log("created", response.data.cart_item);
-          if (!cartItems.includes(response.data.cart_item)){
-            setCartItems([...cartItems, response.data.cart_item])
-          }
+          setCartItems([...cartItems, response.data.cart_item])
           props.history.push('/cart');
         } else {
           console.log("Cart Item creation error");

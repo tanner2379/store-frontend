@@ -1,0 +1,33 @@
+.Profile {
+  display: flex;
+  justify-content: center;
+  font-family: Rye;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+  background-image: url('../../assets/images/parchment.jpg');
+  box-shadow: 4px 2px 5px #444;
+  font-size: 1.5rem;
+  padding: 1rem 2rem 2rem 2rem;
+  margin-bottom: 5%;
+}
+
+.Title {
+  font-size: 2.3rem;
+}
+
+.contentWrapper a {
+  text-decoration: none;
+  color: black;
+}
+
+.contentWrapper a:hover {
+  text-decoration: underline;
+  color: black;
+}

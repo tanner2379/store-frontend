@@ -4,6 +4,7 @@ import axios from './axios-orders';
 
 import { UserContext } from './contexts/UserContext';
 import { SearchResultContext } from './contexts/SearchResultContext';
+import { FlashContext } from './contexts/FlashContext';
 
 import Layout from './hoc/Layouts/Layout';
 import TransitionElement from './components/TransitionElement/TransitionElement';
@@ -38,6 +39,8 @@ import SearchResults from './containers/SearchResults/SearchResults';
 const App = props => {
   const [userInfo, setUserInfo] = useState({loggedIn: 'NOT_LOGGED_IN', user: {}});
   const [searchQuery, setSearchQuery] = useState({query: '',  warning: "none", products: {}});
+  const [flash, setFlash] = useState({errors: [], visible: false})
+
 
   useEffect(() => {
     axios.get('/logged_in')
@@ -45,7 +48,6 @@ const App = props => {
         if (response.data.logged_in && userInfo.loggedIn === 'NOT_LOGGED_IN') {
           setUserInfo({...userInfo, loggedIn: 'LOGGED_IN', user: response.data.user})
         } else if (!response.data.logged_in && userInfo.loggedIn === 'LOGGED_IN') {
-          console.log("hello");
           setUserInfo({...userInfo, loggedIn: 'NOT_LOGGED_IN', user: {}})
         }
       }).catch(error => {
@@ -56,55 +58,64 @@ const App = props => {
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
       <SearchResultContext.Provider value={[searchQuery, setSearchQuery]}>
-        <Layout {...props}>
-          <Suspense fallback={<p>Loading...</p>}>
-            <Route render={({location})  => (
-              <TransitionElement multiple assignedKey={location.key} animation='fade' timeout={1000}>
-                <Switch location={location}>
-                  <Route path="/" exact render={props => (
-                    <Home {...props} />)} />
-                  <Route path="/products" exact render={props => (
-                    <Products {...props} />)} />
-                  <Route path="/products/new" exact render={props => (
-                    <NewProduct {...props} />)} />
-                  <Route path="/products/:slug/edit" render={props => (
-                    <EditProduct {...props} />)} />
-                  <Route path="/products/:slug" render={props => (
-                    <Product {...props} />)} />
-                  <Route path="/categories" exact render={props => (
-                    <Categories {...props} />)} />
-                  <Route path="/categories/new" exact render={props => (
-                    <NewCategory {...props} />)} />
-                  <Route path="/categories/:slug/edit" render={props => (
-                    <EditCategory {...props} />)} />
-                  <Route path="/categories/:slug" render={props => (
-                    <Category {...props} />)} />
-                  <Route path="/sign_in" render={props => (
-                    <Registration {...props} />)} />
-                  <Route path="/users/:slug/edit" render={props => (
-                    <EditProfile {...props} />)} />
-                  <Route path="/users/:slug" render={props => (
-                    <Profile {...props} />)} />
-                  <Route path="/dashboard" render={props => (
-                    <Dashboard {...props} />)} />
-                  <Route path="/invoices" render={props => (
-                    <Invoices {...props} />)} /> 
-                  <Route path="/cart" render={props => (
-                    <Cart {...props} />)} />
-                  <Route path="/search_results" render={props => (
-                    <SearchResults {...props} />)} />
+        <FlashContext.Provider value={[flash, setFlash]} >
+          <Layout {...props}>
+            <Suspense fallback={<p>Loading...</p>}>
+              <Route render={({location})  => (
+                <TransitionElement multiple assignedKey={location.key} animation='fade' timeout={1000}>
+                  <Switch location={location}>
+                    <Route path="/" exact render={props => (
+                      <Home {...props} />)} />
 
-                    <Route path="/checkout" render={props => (
-                      <Checkout {...props} />)} />
-                    <Route path="/confirm" render={props => (
-                      <Confirm {...props} />)} />
+                    <Route path="/products" exact render={props => (
+                      <Products {...props} />)} />
+                    <Route path="/products/new" exact render={props => (
+                      <NewProduct {...props} />)} />
+                    <Route path="/products/:slug/edit" render={props => (
+                      <EditProduct {...props} />)} />
+                    <Route path="/products/:slug" render={props => (
+                      <Product {...props} />)} />
 
-                  <Redirect to="/" />
-                </Switch>
-              </TransitionElement>
-            )} />
-          </Suspense>
-        </Layout>
+                    <Route path="/categories" exact render={props => (
+                      <Categories {...props} />)} />
+                    <Route path="/categories/new" exact render={props => (
+                      <NewCategory {...props} />)} />
+                    <Route path="/categories/:slug/edit" render={props => (
+                      <EditCategory {...props} />)} />
+                    <Route path="/categories/:slug" render={props => (
+                      <Category {...props} />)} />
+
+                    <Route path="/sign_in" render={props => (
+                      <Registration {...props} />)} />
+
+                    <Route path="/users/:slug/edit" render={props => (
+                      <EditProfile {...props} />)} />
+                    <Route path="/users/:slug" render={props => (
+                      <Profile {...props} />)} />
+
+                    <Route path="/dashboard" render={props => (
+                      <Dashboard {...props} />)} />
+                    <Route path="/invoices" render={props => (
+                      <Invoices {...props} />)} /> 
+
+                    <Route path="/cart" render={props => (
+                      <Cart {...props} />)} />
+                      
+                    <Route path="/search_results" render={props => (
+                      <SearchResults {...props} />)} />
+
+                      <Route path="/checkout" render={props => (
+                        <Checkout {...props} />)} />
+                      <Route path="/confirm" render={props => (
+                        <Confirm {...props} />)} />
+
+                    <Redirect to="/" />
+                  </Switch>
+                </TransitionElement>
+              )} />
+            </Suspense>
+          </Layout>
+        </FlashContext.Provider>
       </SearchResultContext.Provider>
     </UserContext.Provider>
   )

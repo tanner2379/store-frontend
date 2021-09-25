@@ -5,6 +5,8 @@ import axios from '../../axios-orders';
 import { UserContext } from '../../contexts/UserContext'
 import Aux from '../../hoc/Aux/Aux';
 
+import classes from './Profile.module.css';
+
 const Profile = props => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useContext(UserContext);
@@ -27,26 +29,31 @@ const Profile = props => {
   }
 
   return(
-    <div>
-      <h1>Profile Page</h1>
-      <p>The Profile id is {id}</p>
-      <Link to={`/users/${id}/edit`} >
-        Edit Information
-      </Link>
-      {userInfo.user.vendor
-        ? <Aux>
-            <Link to={`/products/new`} >
-              Create Product
-            </Link>
-            <Link to={`/categories/new`} >
-              Create Category
-            </Link>
-            <Link to={`/dashboard`} >
-              Dashboard
-            </Link>
-          </Aux>
-        : <button onClick={(event) => handleDelete(event)}>Delete Profile</button>
-      }
+    <div className={classes.Profile}>
+      <div className={classes.contentWrapper}>
+        <p className={classes.Title}>Profile Page</p>
+        <p className={classes.subTitle}>The Profile id is {id}</p>
+        <Link to={`/users/${id}/edit`} >
+          Edit Information
+        </Link>
+        {userInfo.user.vendor
+          ? <Aux>
+              <Link to={`/products/new`} >
+                Create Product
+              </Link>
+              <Link to={`/categories/new`} >
+                Create Category
+              </Link>
+              <Link to={`/dashboard`} >
+                Dashboard
+              </Link>
+              <Link to={'/invoices'} >
+                Invoices
+              </Link>
+            </Aux>
+          : <button onClick={(event) => handleDelete(event)}>Delete Profile</button>
+        }
+      </div>
     </div>
   )
 }

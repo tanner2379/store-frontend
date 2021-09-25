@@ -12,7 +12,7 @@ const SearchResults = props => {
 
   return (
     <div className={classes.SearchResults}>
-      <h1 className={classes.Title}>{searchResults.query}</h1>
+      <h1 className={classes.Title}>Results for: "{searchResults.query}"</h1>
       {searchResults.products.map(product =>{
         if (product.images[0]) {
           return <ProductThumb 

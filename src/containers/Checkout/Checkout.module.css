@@ -117,3 +117,23 @@ input[type=number] {
   background-color: rgba(160, 130, 84, 1);
 
 }
+
+@media(max-width : 1000px) {
+  .fieldWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .paymentFields {
+    margin-bottom: 2em;
+  }
+
+  .billingAddressFields {
+    margin-bottom: 2em;
+    margin-left: 0;
+  }
+
+  .shippingFields {
+    margin-left: 0;
+  }
+}

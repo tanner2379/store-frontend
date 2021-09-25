@@ -4,7 +4,8 @@ import axios from '../../../axios-orders';
 import { inputChangedHandler } from '../../../shared/utility';
 import { UserContext } from '../../../contexts/UserContext';
 
-import classes from './New.module.css'
+import classes from './New.module.css';
+
 const New = props => {
   const userInfo = useContext(UserContext)[0];
 
@@ -85,33 +86,40 @@ const New = props => {
 
   return (
     <div className={classes.NewProduct}>
+      <p className={classes.Title}>Create a New Product</p>
       <div className = {classes.formWrapper} >
-        <h2>Create a new product</h2>
+
         <form onSubmit={handleSubmit}>
           <input
+            className={classes.Input}
             type="text"
             name="name"
             placeholder="Product Name"
             onChange={(event) => handleChange(event)}
             required />
           <input
+            className={classes.Input}
             type="text"
             name="description"
             placeholder="Product Description"
             onChange={(event) => handleChange(event)}
             required />
           <input
+            className={classes.Input}
             type="number"
             name="price"
             placeholder="Price"
             onChange={(event) => handleChange(event)}
             required />
             <input
+              className={classes.Input}
               type="file"
               accept="image/*"
               multiple
               onChange={(event) => fileSelectedHandler(event)} />
-          <button type="submit">Create</button>
+          <div className={classes.createButtonWrapper}>
+            <button type="submit" className={classes.createButton}>Create</button>
+          </div>
         </form>
       </div>
     </div>

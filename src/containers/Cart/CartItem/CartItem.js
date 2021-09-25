@@ -23,8 +23,17 @@ const CartItem = props => {
       })
   }
 
-  return(
+  let cartItem = (
     <div className={classes.CartItem}>
+      <p style={{marginRight: "1em"}} className={classes.productQuantity}>{props.quantity}x</p>
+      <p className={classes.productName}>{props.productName}</p>
+      <p className={classes.totalPrice}>{props.totalPrice}</p>
+    </div>
+  )
+
+  if (props.adjustable) {
+    cartItem = (
+      <div className={classes.CartItem}>
       <img src={'http://localhost:5000/' + props.imageUrl} alt='cartItem Image' width="100px" height="100px" />
       <p className={classes.productName}>{props.productName}</p>
       <p className={classes.productPrice}>{props.productPrice}</p>
@@ -40,7 +49,10 @@ const CartItem = props => {
         <p>Remove from Cart</p>
       </div>
     </div>
-  )
+    )
+  }
+
+  return cartItem
 }
 
 export default CartItem

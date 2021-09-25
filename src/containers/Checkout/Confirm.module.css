@@ -1,23 +1,52 @@
 .Confirm {
   display: flex;
-  text-align: center;
   justify-content: center;
   font-family: Rye;
 }
 
 .contentWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
   width: 40vw;
   background-image: url('../../assets/images/parchment.jpg');
   box-shadow: 4px 2px 5px #444;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   padding: 1rem 2rem 2rem 2rem;
+  margin-bottom: 5%;
 }
 
 .Title {
-  font-size: 2rem;
+  font-size: 2.3rem;
 }
 
-.contentWrapper button {
+.cartList {
+  border-bottom: 2px solid black;
+}
+
+.infoWrapper {
+  display: flex;
+}
+
+
+.cardDetails {
+  border: 5px solid black;
+  border-radius: 10px;
+  padding: 0 1em;
+  margin-right: 1em;
+  height: fit-content;
+}
+
+.shippingDetails {
+  border: 5px solid black;
+  border-radius: 10px;
+  padding: 0 1em;
+}
+
+
+.confirmButton {
   margin-top: 1.5em;
   margin-bottom: 1.25em;
   background-color: rgba(160, 130, 84, 0.7);
@@ -28,4 +57,11 @@
   font-weight: 700;
   font-size: 2em;
   color: rgba(0, 0, 0, 0.7);
+}
+
+.confirmButton:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 1);
+  background-color: rgba(160, 130, 84, 1);
+
 }

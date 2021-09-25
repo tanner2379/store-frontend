@@ -24,15 +24,9 @@ const Checkout = props => {
   const [createAccount, setCreateAccount] = useState(false);
   const [isProcessing, setProcessingTo] = useState(false);
 
+  const cartItemIds = cartItems.map(cartItem => cartItem.id);
+
   const [formValue, setFormValue] = useState({
-    cartItems: {
-      value: [],
-      validation: {
-        required: true
-      },
-      valid: false,
-      touched: false,
-    },
     billingName: {
       value: '',
       validation: {
@@ -257,7 +251,7 @@ const Checkout = props => {
       axios.post('/charges', {
         create_account: createAccount,
         billing_as_shipping: billingAsShipping,
-        cart_items: cartItems,
+        cart_items: cartItemIds,
         payment_method: formValue.paymentMethod.value,
         shipping_details: formValue.shippingDetails.value,
         billing_name: formValue.billingName.value,
@@ -277,11 +271,11 @@ const Checkout = props => {
       })
       .then(response => {
         if (response.data.status === 200 ) {
-          localStorage.setItem("paymentInfo", JSON.stringify({
+          sessionStorage.setItem("paymentInfo", JSON.stringify({
             payment_intent: response.data.payment_intent,
             shipping: response.data.shipping,
             name: response.data.name,
-            lastFour: response.data.lastFour,
+            lastFour: response.data.last_four,
             cartItems: response.data.cart_items,
           }));
           setProcessingTo(false);
@@ -300,7 +294,7 @@ const Checkout = props => {
       axios.post('/charges', {
         create_account: createAccount,
         billing_as_shipping: billingAsShipping,
-        cart_items: cartItems,
+        cart_items: cartItemIds,
         payment_method: formValue.paymentMethod.value,
         shipping_details: formValue.shippingDetails.value,
         billing_name: formValue.billingName.value,
@@ -327,11 +321,11 @@ const Checkout = props => {
       })
       .then(response => {
         if (response.data.status === 200 ) {
-          localStorage.setItem("paymentInfo", JSON.stringify({
+          sessionStorage.setItem("paymentInfo", JSON.stringify({
             payment_intent: response.data.payment_intent,
             shipping: response.data.shipping,
             name: response.data.name,
-            lastFour: response.data.lastFour,
+            lastFour: response.data.last_four,
             cartItems: response.data.cart_items
           }));
           setProcessingTo(false);

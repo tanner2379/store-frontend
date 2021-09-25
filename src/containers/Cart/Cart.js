@@ -121,7 +121,8 @@ const Cart = props => {
               }
               increaseQuantity={() => handleQuantityAdd(cartItem.id, cartItem.product_in_stock, cartItems.indexOf(cartItem))}
               decreaseQuantity={() => handleQuantitySubtract(cartItem.id, cartItems.indexOf(cartItem))}
-              handleDelete={() => handleDelete(cartItem.id)} />
+              handleDelete={() => handleDelete(cartItem.id)}
+              adjustable />
             )
           }
         )}

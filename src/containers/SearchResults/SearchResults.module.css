@@ -1,0 +1,18 @@
+.SearchResults {
+  margin-top: 0;
+  padding-top: 1px;
+  padding-bottom: 4rem;
+  background-image: url('../../assets/images/wood.png');
+  width: 97vw;
+  margin-left: 1.5%;
+  border-radius: 5px;
+  box-shadow: 10px 5px 10px #555;
+}
+
+.Title {
+  text-align: center;
+  text-transform: capitalize;
+  font-family: Rye;
+  color: #201b17;
+  font-size: 3rem;
+}

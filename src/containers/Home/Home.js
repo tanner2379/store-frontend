@@ -22,8 +22,6 @@ const Home = props => {
       })
   }, [])
 
-  console.log(categories);
-
   let categoryThumbs = null;
   if (categories && categories[0]) {
     categoryThumbs = (
